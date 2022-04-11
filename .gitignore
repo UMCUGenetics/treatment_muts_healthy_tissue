@@ -1,0 +1,12 @@
+Figures/
+R/SigProfiler/input/
+R/SigProfiler/output/
+R/SigProfiler/SigProf_virenv/
+Data/dnds/
+Data/Mut_load/
+Data/Mut_sign_contribution/
+Data/PurpleVCFs/
+Data/Rearrangments/
+Data/Sign_analysis/
+Data/telos/
+
