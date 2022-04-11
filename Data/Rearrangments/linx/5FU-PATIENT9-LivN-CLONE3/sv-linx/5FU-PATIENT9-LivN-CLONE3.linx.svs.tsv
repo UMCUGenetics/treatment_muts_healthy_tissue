@@ -1,0 +1,9 @@
+svId	clusterId	clusterReason	fragileSiteStart	fragileSiteEnd	isFoldback	lineTypeStart	lineTypeEnd	ploidyMin	ploidyMax	geneStart	geneEnd	replicationTimingStart	replicationTimingEnd	localTopologyIdStart	localTopologyIdEnd	localTopologyStart	localTopologyEnd	localTICountStart	localTICountEnd
+1	1		false	false	false	None	None	-0.0504	1.7129	CDC73	CDC73	0.5933	0.5933	0	0	DSB	DSB	0	0
+2	2		false	false	false	None	None	-0.0393	1.9298	EML6	EML6	0.6842	0.6840	0	0	SIMPLE_DUP	SIMPLE_DUP	0	0
+3	3		false	false	false	None	None	0.1938	0.5343			0.5769	0.4833	0	1	ISOLATED_BE	ISOLATED_BE	0	0
+4	4		false	false	false	None	None	0.8768	1.2513	IGFBP2	IGFBP2	0.4925	0.4200	0	1	ISOLATED_BE	ISOLATED_BE	0	0
+5	5		false	false	false	None	None	-0.0094	1.6678			0.6120	0.6120	0	0	DSB	DSB	0	0
+9	0		false	false	false	None	None	0.0844	2.2408	SDHD;SDHD	SDHD;SDHD	0.7745	0.7745	0	0	SIMPLE_DUP	SIMPLE_DUP	0	0
+10	6		false	false	false	None	None	-0.0559	1.6416	ORMDL3;RP11-387H17.4;LRRC3C	ORMDL3;RP11-387H17.4;LRRC3C	0.7406	0.7412	0	0	DSB	DSB	0	0
+11	7		false	false	false	None	None	-0.0342	1.9082	PPP1R12C	PPP1R12C	0.7583	0.7583	0	0	SIMPLE_DUP	SIMPLE_DUP	0	0

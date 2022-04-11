@@ -1,0 +1,2 @@
+FivePrimeBreakendId	ThreePrimeBreakendId	Name	Reported	ReportedType	Phased	ChainLength	ChainLinks	ChainTerminated	DomainsKept	DomainsLost	SkippedExonsUp	SkippedExonsDown	FusedExonUp	FusedExonDown
+28	39	MICU2_MICU2	false		true	358	1	false	EF-hand domain		0	0	2	5

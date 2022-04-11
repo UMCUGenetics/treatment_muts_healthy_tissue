@@ -1,0 +1,2 @@
+FivePrimeBreakendId	ThreePrimeBreakendId	Name	Reported	ReportedType	Phased	ChainLength	ChainLinks	ChainTerminated	DomainsKept	DomainsLost	SkippedExonsUp	SkippedExonsDown	FusedExonUp	FusedExonDown
+15	18	ARHGAP42_ARHGAP42	false		false	0	0	false	Pleckstrin homology domain;Rho GTPase-activating protein domain;SH3 domain		0	0	2	4

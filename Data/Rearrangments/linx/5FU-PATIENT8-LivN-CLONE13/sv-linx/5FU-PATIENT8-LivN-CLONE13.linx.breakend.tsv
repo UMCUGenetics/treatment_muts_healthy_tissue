@@ -1,0 +1,17 @@
+Id	SvId	IsStart	Gene	TranscriptId	Canonical	IsUpstream	Disruptive	ReportedDisruption	UndisruptedCopyNumber	RegionType	CodingContext	Biotype	ExonBasePhase	NextSpliceRank	NextSplicePhase	NextSpliceDistance	TotalExonCount
+0	0	true	AC073321.3	ENST00000449783	true	false	false	false	1.409	Upstream	NonCoding	antisense	-1	2	-1	71746	4
+1	0	true	PSMB3P2	ENST00000457237	true	false	false	false	1.409	Upstream	NonCoding	processed_pseudogene	-1	1	-1	67725	1
+2	0	true	IGFBP5	ENST00000233813	true	false	false	false	1.409	Intronic	Coding	protein_coding	-1	3	0	453	4
+3	0	true	AC007563.5	ENST00000447289	true	true	false	false	1.409	Upstream	NonCoding	antisense	-1	0	-1	14744	4
+4	0	false	AC073321.3	ENST00000449783	true	true	false	false	1.409	Upstream	NonCoding	antisense	-1	0	-1	-67760	4
+5	0	false	PSMB3P2	ENST00000457237	true	true	false	false	1.409	Upstream	NonCoding	processed_pseudogene	-1	0	-1	-1837	1
+6	0	false	IGFBP5	ENST00000233813	true	true	false	false	1.409	Intronic	Coding	protein_coding	-1	2	0	131	4
+7	0	false	AC007563.5	ENST00000447289	true	false	false	false	1.409	Upstream	NonCoding	antisense	-1	2	-1	33661	4
+8	1	true	PRR16	ENST00000379551	true	true	false	false	1.096	Intronic	Coding	protein_coding	-1	2	0	85200	3
+9	1	false	PRR16	ENST00000379551	true	false	false	false	1.0939999999999999	Intronic	Coding	protein_coding	-1	3	0	119411	3
+10	2	true	RP4-639J15.2	ENST00000467608	true	false	false	false	1.358	Upstream	NonCoding	processed_pseudogene	-1	1	-1	97511	1
+11	2	true	UBE3C	ENST00000348165	true	true	false	false	1.358	Intronic	Coding	protein_coding	-1	9	0	2025	23
+12	2	true	RP4-814D15.2	ENST00000429552	true	true	false	false	1.358	Upstream	NonCoding	processed_pseudogene	-1	0	-1	-2895	1
+13	2	false	RP4-639J15.2	ENST00000467608	true	true	false	false	1.357	Upstream	NonCoding	processed_pseudogene	-1	0	-1	-1	1
+14	2	false	UBE3C	ENST00000348165	true	false	false	false	1.357	Intronic	Coding	protein_coding	-1	10	0	720	23
+15	2	false	RP4-814D15.2	ENST00000429552	true	false	false	false	1.357	Upstream	NonCoding	processed_pseudogene	-1	1	-1	6254	1

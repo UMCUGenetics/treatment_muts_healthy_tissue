@@ -1,0 +1,4 @@
+FivePrimeBreakendId	ThreePrimeBreakendId	Name	Reported	ReportedType	Phased	ChainLength	ChainLinks	ChainTerminated	DomainsKept	DomainsLost	SkippedExonsUp	SkippedExonsDown	FusedExonUp	FusedExonDown
+309	310	TNRC6B_SGSM3	false		true	0	0	false	RUN		2	0	5	2
+64	257	OSMR_MROH2B	false		true	78132	1	false			1	0	6	25
+70	215	LIFR_C7	false		true	65529	1	false		Thrombospondin;Low-density lipoprotein (LDL) receptor class A repeat;Membrane attack complex component/perforin (MACPF) domain;Sushi/SCR/CCP domain	2	0	3	17

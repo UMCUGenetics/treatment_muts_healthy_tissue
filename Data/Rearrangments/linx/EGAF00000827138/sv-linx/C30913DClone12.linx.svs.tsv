@@ -1,0 +1,5 @@
+svId	clusterId	clusterReason	fragileSiteStart	fragileSiteEnd	isFoldback	lineTypeStart	lineTypeEnd	ploidyMin	ploidyMax	geneStart	geneEnd	replicationTimingStart	replicationTimingEnd	localTopologyIdStart	localTopologyIdEnd	localTopologyStart	localTopologyEnd	localTICountStart	localTICountEnd
+2	1		false	false	false	None	None	-0.0217	2.1815	COL21A1	COL21A1	0.7182	0.7182	0	0	SIMPLE_DUP	SIMPLE_DUP	0	0
+3	2		false	false	false	None	None	0.1146	1.8920	DNAH11	DNAH11	0.4114	0.4114	0	0	DSB	DSB	0	0
+4	3		true	true	false	None	None	0.4235	2.2155	IMMP2L	IMMP2L	0.3474	0.3472	0	0	DSB	DSB	0	0
+6	0		false	false	false	None	None	-0.1637	0.2233	SPRED2	SPRED2	0.0000	0.0000	0	1	ISOLATED_BE	ISOLATED_BE	0	0

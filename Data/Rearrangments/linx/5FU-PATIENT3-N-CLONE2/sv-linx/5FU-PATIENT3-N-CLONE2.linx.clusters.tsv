@@ -1,0 +1,13 @@
+clusterId	resolvedType	synthetic	subClonal	subType	clusterCount	clusterDesc
+0	SIMPLE	false	false	DEL	1	DEL
+1	SIMPLE	false	false	DEL	1	DEL
+3	SIMPLE	false	false	DEL	1	DEL
+5	SIMPLE	false	false	DEL	1	DEL
+6	RECIPROCAL	true	false	RECIP_INV_DUPS	3	DEL=1_INV=2
+7	SIMPLE	false	false	DEL	1	DEL
+8	RECIPROCAL	false	false	RECIP_INV	2	INV=2
+27	COMPLEX	false	false	COMPLEX	60	BND=2_DEL=13_DUP=15_INF=2_INV=28
+35	SIMPLE	false	false	DEL	1	DEL
+36	SIMPLE	false	false	DEL	1	DEL
+37	COMPLEX	false	false	COMPLEX	4	BND=2_DUP=1_INF=1
+38	SIMPLE	false	false	DEL	1	DEL

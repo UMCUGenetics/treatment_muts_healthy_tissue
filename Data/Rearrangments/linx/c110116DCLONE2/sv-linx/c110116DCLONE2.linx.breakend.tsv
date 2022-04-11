@@ -1,0 +1,11 @@
+Id	SvId	IsStart	Gene	TranscriptId	Canonical	IsUpstream	Disruptive	ReportedDisruption	UndisruptedCopyNumber	RegionType	CodingContext	Biotype	ExonBasePhase	NextSpliceRank	NextSplicePhase	NextSpliceDistance	TotalExonCount
+0	5	true	CTD-2281M20.1	ENST00000506769	true	true	false	false	2.02	Intronic	NonCoding	lincRNA	-1	1	-1	15449	9
+1	5	true	RP11-2N5.2	ENST00000513366	true	false	false	false	2.02	Upstream	NonCoding	lincRNA	-1	2	-1	30568	5
+2	5	true	RP11-2N5.1	ENST00000503320	true	false	false	false	2.02	Upstream	NonCoding	lincRNA	-1	2	-1	63267	5
+3	5	false	CTD-2281M20.1	ENST00000506769	true	false	false	false	2.004	Intronic	NonCoding	lincRNA	-1	2	-1	22711	9
+4	5	false	RP11-2N5.2	ENST00000513366	true	true	false	false	2.004	Upstream	NonCoding	lincRNA	-1	0	-1	-1	5
+5	5	false	RP11-2N5.1	ENST00000503320	true	true	false	false	2.004	Upstream	NonCoding	lincRNA	-1	0	-1	-34744	5
+6	7	false	AC006987.6	ENST00000413610	true	true	false	false	1.0299999999999994	Upstream	NonCoding	unprocessed_pseudogene	-1	0	-1	-25116	1
+7	7	false	AC006987.7	ENST00000446466	true	true	false	false	1.0299999999999994	Upstream	NonCoding	unprocessed_pseudogene	-1	0	-1	-5543	1
+8	7	false	CDC27P2	ENST00000425026	true	true	false	false	1.0299999999999994	Upstream	NonCoding	processed_pseudogene	-1	0	-1	1261	1
+9	7	false	RNA5-8SP6	ENST00000515896	true	false	false	false	1.0299999999999994	Upstream	NonCoding	rRNA	-1	1	-1	2314	1

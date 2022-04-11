@@ -1,0 +1,14 @@
+Id	SvId	IsStart	Gene	TranscriptId	Canonical	IsUpstream	Disruptive	ReportedDisruption	UndisruptedCopyNumber	RegionType	CodingContext	Biotype	ExonBasePhase	NextSpliceRank	NextSplicePhase	NextSpliceDistance	TotalExonCount
+0	0	true	ZCCHC7	ENST00000336755	true	false	false	false	2.0	Intronic	Coding	protein_coding	-1	7	0	19787	9
+1	0	true	AL158155.1	ENST00000401251	true	true	false	false	2.0	Upstream	NonCoding	miRNA	-1	0	-1	53721	1
+2	0	true	GRHPR	ENST00000318158	true	false	false	false	2.0	Upstream	Coding	protein_coding	-1	2	2	95275	9
+3	0	false	ZCCHC7	ENST00000336755	true	true	false	false	2.029	Intronic	Coding	protein_coding	-1	6	0	1810	9
+4	0	false	AL158155.1	ENST00000401251	true	false	false	false	2.029	Upstream	NonCoding	miRNA	-1	1	-1	33540	1
+5	0	false	GRHPR	ENST00000318158	true	true	false	false	2.029	Upstream	Coding	protein_coding	-1	0	-1	-27191	9
+6	1	true	AL031601.1	ENST00000580460	true	true	false	false	1.962	Upstream	NonCoding	miRNA	-1	0	-1	-20024	1
+7	1	true	PABPC1P8	ENST00000452851	true	true	false	false	1.962	Upstream	NonCoding	processed_pseudogene	-1	0	-1	36397	1
+8	2	true	CTD-2522B17.5	ENST00000566406	true	true	false	false	2.0102192	Upstream	NonCoding	processed_pseudogene	-1	0	-1	-10279	1
+9	2	true	CTD-2522B17.4	ENST00000566845	true	true	false	false	2.0102192	Upstream	NonCoding	processed_pseudogene	-1	0	-1	-8731	1
+10	2	true	AC136932.2	ENST00000583871	true	true	false	false	2.0102192	Upstream	NonCoding	miRNA	-1	0	-1	7751	1
+11	2	true	AC136932.1	ENST00000385251	true	false	false	false	2.0102192	Upstream	NonCoding	miRNA	-1	1	-1	6900	1
+12	2	true	RNA5-8SP2	ENST00000363564	true	false	false	false	2.0102192	Upstream	NonCoding	rRNA	-1	1	-1	10674	1

@@ -1,0 +1,3 @@
+SampleId	ClusterId	ChainId	SvId	Type	ResolvedType	IsSynthetic	ChrStart	ChrEnd	PosStart	PosEnd	OrientStart	OrientEnd	InfoStart	InfoEnd	Ploidy
+c150216DCLONE2	1	1	1	DEL	DEL	false	1	1	205899001	205899037	1	-1	NORMAL	NORMAL	0.8652
+c150216DCLONE2	0	1	3	INV	LOW_VAF	false	8	8	22327904	22327928	1	1	NORMAL	NORMAL	0.0419

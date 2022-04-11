@@ -1,0 +1,17 @@
+Id	SvId	IsStart	Gene	TranscriptId	Canonical	IsUpstream	Disruptive	ReportedDisruption	UndisruptedCopyNumber	RegionType	CodingContext	Biotype	ExonBasePhase	NextSpliceRank	NextSplicePhase	NextSpliceDistance	TotalExonCount
+0	0	true	CTD-3006G17.2	ENST00000553392	true	false	false	false	1.178	Upstream	NonCoding	processed_transcript	-1	2	-1	227310	6
+1	0	true	AL445384.1	ENST00000411232	true	true	false	false	1.178	Upstream	NonCoding	miRNA	-1	0	-1	-1	1
+2	0	false	CTD-3006G17.2	ENST00000553392	true	true	false	false	1.1720000000000002	Upstream	NonCoding	processed_transcript	-1	0	-1	-1	6
+3	0	false	AL445384.1	ENST00000411232	true	false	false	false	1.1720000000000002	Upstream	NonCoding	miRNA	-1	1	-1	89323	1
+4	1	true	CTD-3006G17.2	ENST00000553392	true	false	false	false	1.0	Upstream	NonCoding	processed_transcript	-1	2	-1	227509	6
+5	1	true	AL445384.1	ENST00000411232	true	true	false	false	1.0	Upstream	NonCoding	miRNA	-1	0	-1	-1	1
+6	1	false	CTD-3006G17.2	ENST00000553392	true	true	false	false	1.6199999999999999	Upstream	NonCoding	processed_transcript	-1	0	-1	-1	6
+7	1	false	AL445384.1	ENST00000411232	true	false	false	false	1.6199999999999999	Upstream	NonCoding	miRNA	-1	1	-1	88696	1
+8	2	true	CTD-3006G17.2	ENST00000553392	true	true	false	false	0.9970000000000001	Upstream	NonCoding	processed_transcript	-1	0	-1	-1	6
+9	2	true	AL445384.1	ENST00000411232	true	false	false	false	0.9970000000000001	Upstream	NonCoding	miRNA	-1	1	-1	89263	1
+10	2	false	CTD-3006G17.2	ENST00000553392	true	true	false	false	2.141228839192162	Upstream	NonCoding	processed_transcript	-1	0	-1	-1	6
+11	2	false	AL445384.1	ENST00000411232	true	false	false	false	2.141228839192162	Upstream	NonCoding	miRNA	-1	1	-1	88485	1
+12	3	true	CTD-3006G17.2	ENST00000553392	true	false	false	false	2.031126578648606	Upstream	NonCoding	processed_transcript	-1	2	-1	228292	6
+13	3	true	AL445384.1	ENST00000411232	true	true	false	false	2.031126578648606	Upstream	NonCoding	miRNA	-1	0	-1	-1	1
+14	3	false	CTD-3006G17.2	ENST00000553392	true	false	false	false	2.007	Upstream	NonCoding	processed_transcript	-1	2	-1	228574	6
+15	3	false	AL445384.1	ENST00000411232	true	true	false	false	2.007	Upstream	NonCoding	miRNA	-1	0	-1	-1	1

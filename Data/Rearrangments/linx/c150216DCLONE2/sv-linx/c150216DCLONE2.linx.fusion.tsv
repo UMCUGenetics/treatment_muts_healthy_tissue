@@ -1,0 +1,2 @@
+FivePrimeBreakendId	ThreePrimeBreakendId	Name	Reported	ReportedType	Phased	ChainLength	ChainLinks	ChainTerminated	DomainsKept	DomainsLost	SkippedExonsUp	SkippedExonsDown	FusedExonUp	FusedExonDown
+4	1	SLC26A9_SLC26A9	false		true	0	0	false	STAS domain		1	0	5	7

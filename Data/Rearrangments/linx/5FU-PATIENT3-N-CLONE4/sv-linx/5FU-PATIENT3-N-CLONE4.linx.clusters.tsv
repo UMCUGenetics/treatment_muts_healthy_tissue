@@ -1,0 +1,15 @@
+clusterId	resolvedType	synthetic	subClonal	subType	clusterCount	clusterDesc
+0	ARTIFACT	false	true	LOW_VAF	1	BND
+1	RECIPROCAL	false	false	RECIP_TRANS	2	BND=2
+2	SIMPLE	false	false	DEL	1	DEL
+3	SIMPLE	true	true	DEL	2	BND=2
+4	SIMPLE	false	false	DEL	1	DEL
+5	SIMPLE	false	false	DEL	1	DEL
+6	SIMPLE	false	false	DEL	1	DEL
+7	SIMPLE	false	true	DEL	1	DEL
+8	SIMPLE	false	false	DEL	1	DEL
+9	SIMPLE	false	false	DEL	1	DEL
+10	SIMPLE	false	false	DEL	1	DEL
+11	SIMPLE	false	false	DEL	1	DEL
+12	SIMPLE	false	false	DEL	1	DEL
+13	SIMPLE	false	false	DEL	1	DEL

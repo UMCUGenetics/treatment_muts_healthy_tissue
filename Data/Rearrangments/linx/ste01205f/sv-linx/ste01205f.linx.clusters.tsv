@@ -1,0 +1,7 @@
+clusterId	resolvedType	synthetic	subClonal	subType	clusterCount	clusterDesc
+0	ARTIFACT	false	true	LOW_VAF	1	BND
+1	ARTIFACT	false	true	LOW_VAF	1	BND
+2	ARTIFACT	false	true	LOW_VAF	1	BND
+3	ARTIFACT	false	true	LOW_VAF	1	INV
+4	INCOMPLETE	false	true	INF	1	INF
+5	INCOMPLETE	false	false	INF	1	INF

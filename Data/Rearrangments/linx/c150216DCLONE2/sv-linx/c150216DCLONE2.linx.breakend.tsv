@@ -1,0 +1,15 @@
+Id	SvId	IsStart	Gene	TranscriptId	Canonical	IsUpstream	Disruptive	ReportedDisruption	UndisruptedCopyNumber	RegionType	CodingContext	Biotype	ExonBasePhase	NextSpliceRank	NextSplicePhase	NextSpliceDistance	TotalExonCount
+0	1	true	PM20D1	ENST00000367136	true	false	false	false	1.1479999999999997	Upstream	Coding	protein_coding	-1	2	1	79756	13
+1	1	true	SLC26A9	ENST00000367134	true	false	true	false	1.1479999999999997	Intronic	Coding	protein_coding	-1	7	0	517	22
+2	1	true	RP4-681L3.2	ENST00000421166	true	true	false	false	1.1479999999999997	Upstream	NonCoding	antisense	-1	0	-1	-1	2
+3	1	false	PM20D1	ENST00000367136	true	true	false	false	1.147	Upstream	Coding	protein_coding	-1	0	-1	-14726	13
+4	1	false	SLC26A9	ENST00000367134	true	true	true	false	1.147	Exonic	Coding	protein_coding	2	5	0	147	22
+5	1	false	RP4-681L3.2	ENST00000421166	true	false	false	false	1.147	Upstream	NonCoding	antisense	-1	2	-1	5699	2
+6	3	true	CTD-2036J7.1	ENST00000482585	true	false	false	false	1.98858	Upstream	NonCoding	unprocessed_pseudogene	-1	2	-1	79736	2
+7	3	true	PPP3CC	ENST00000397775	true	true	true	false	1.98858	Intronic	Coding	protein_coding	-1	1	1	28933	15
+8	3	true	RP11-382J24.2	ENST00000519706	true	true	false	false	1.98858	Upstream	NonCoding	processed_pseudogene	-1	0	-1	-5201	1
+9	3	true	SORBS3	ENST00000240123	true	true	false	false	1.98858	Upstream	5P_UTR	protein_coding	-1	0	-1	-70224	21
+10	3	false	CTD-2036J7.1	ENST00000482585	true	false	false	false	1.99858	Upstream	NonCoding	unprocessed_pseudogene	-1	2	-1	79760	2
+11	3	false	PPP3CC	ENST00000397775	true	true	true	false	1.99858	Intronic	Coding	protein_coding	-1	1	1	28957	15
+12	3	false	RP11-382J24.2	ENST00000519706	true	true	false	false	1.99858	Upstream	NonCoding	processed_pseudogene	-1	0	-1	-5177	1
+13	3	false	SORBS3	ENST00000240123	true	true	false	false	1.99858	Upstream	5P_UTR	protein_coding	-1	0	-1	-70200	21

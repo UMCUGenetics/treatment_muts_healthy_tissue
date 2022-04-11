@@ -1,0 +1,5 @@
+Id	SvId	IsStart	Gene	TranscriptId	Canonical	IsUpstream	Disruptive	ReportedDisruption	UndisruptedCopyNumber	RegionType	CodingContext	Biotype	ExonBasePhase	NextSpliceRank	NextSplicePhase	NextSpliceDistance	TotalExonCount
+0	4	true	RP3-513G18.2	ENST00000508619	true	false	false	false	0.5800000000000001	Upstream	NonCoding	lincRNA	-1	2	-1	48218	3
+1	4	true	ADRA2C	ENST00000330055	true	true	false	false	0.5800000000000001	Upstream	5P_UTR	protein_coding	-1	0	-1	-1	1
+2	4	false	RP3-513G18.2	ENST00000508619	true	true	false	false	0.5800000000000001	Upstream	NonCoding	lincRNA	-1	0	-1	33299	3
+3	4	false	ADRA2C	ENST00000330055	true	false	false	false	0.5800000000000001	Upstream	5P_UTR	protein_coding	-1	1	-1	39671	1

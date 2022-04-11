@@ -1,0 +1,8 @@
+svId	clusterId	clusterReason	fragileSiteStart	fragileSiteEnd	isFoldback	lineTypeStart	lineTypeEnd	ploidyMin	ploidyMax	geneStart	geneEnd	replicationTimingStart	replicationTimingEnd	localTopologyIdStart	localTopologyIdEnd	localTopologyStart	localTopologyEnd	localTICountStart	localTICountEnd
+2	3		true	true	false	None	None	0.8827	1.2046	FHIT	FHIT	0.1771	0.0682	0	1	ISOLATED_BE	ISOLATED_BE	0	0
+5	4	Prox_22	false	false	false	None	None	-0.6452	3.0652			0.1109	0.0000	0	-1	DSB		0	0
+8	5		false	false	false	None	None	-0.0971	0.1681	NRP1;RP11-342D11.2	NRP1;RP11-342D11.2	0.6866	0.6859	0	1	ISOLATED_BE	ISOLATED_BE	0	0
+14	2		false	false	false	None	None	-0.0866	0.1671	TRPV3	TRPV3	0.0000	0.0000	0	0	SAME_ORIENT	SAME_ORIENT	0	0
+17	0		false	false	false	None	None	-0.1037	0.1555	TDRD12	TDRD12	0.0000	0.0000	0	1	ISOLATED_BE	ISOLATED_BE	0	0
+21	1		false	false	false	None	None	-0.0822	0.1209	CTD-2522B17.4;AC136932.2;AC136932.1	CTD-2522B17.4;AC136932.2;AC136932.1	0.0000	0.0000	0	1	ISOLATED_BE	ISOLATED_BE	0	0
+22	4	Prox_5	false	false	false	None	None	0.0679	2.3733			0.1109	0.0000	0	1	DSB	ISOLATED_BE	0	0

@@ -1,0 +1,13 @@
+Id	SvId	IsStart	Gene	TranscriptId	Canonical	IsUpstream	Disruptive	ReportedDisruption	UndisruptedCopyNumber	RegionType	CodingContext	Biotype	ExonBasePhase	NextSpliceRank	NextSplicePhase	NextSpliceDistance	TotalExonCount
+0	0	true	C7orf60	ENST00000297145	true	true	false	false	2.008	Upstream	Coding	protein_coding	-1	0	-1	-75736	5
+1	0	true	AC018464.3	ENST00000451962	true	true	false	false	2.008	Upstream	NonCoding	lincRNA	-1	0	-1	50010	6
+2	0	true	RP11-736E3.1	ENST00000441928	true	false	false	false	2.008	Upstream	NonCoding	antisense	-1	2	-1	77251	3
+3	0	false	C7orf60	ENST00000297145	true	true	false	false	1.9952109006706624	Upstream	Coding	protein_coding	-1	0	-1	-75754	5
+4	0	false	AC018464.3	ENST00000451962	true	true	false	false	1.9952109006706624	Upstream	NonCoding	lincRNA	-1	0	-1	49992	6
+5	0	false	RP11-736E3.1	ENST00000441928	true	false	false	false	1.9952109006706624	Upstream	NonCoding	antisense	-1	2	-1	77233	3
+6	1	true	C7orf60	ENST00000297145	true	false	false	false	2.0048446302520375	Upstream	Coding	protein_coding	-1	2	1	90664	5
+7	1	true	AC018464.3	ENST00000451962	true	false	false	false	2.0048446302520375	Upstream	NonCoding	lincRNA	-1	2	-1	34946	6
+8	1	true	RP11-736E3.1	ENST00000441928	true	true	false	false	2.0048446302520375	Upstream	NonCoding	antisense	-1	0	-1	-1	3
+9	1	false	C7orf60	ENST00000297145	true	false	false	false	2.017	Upstream	Coding	protein_coding	-1	2	1	90684	5
+10	1	false	AC018464.3	ENST00000451962	true	false	false	false	2.017	Upstream	NonCoding	lincRNA	-1	2	-1	34966	6
+11	1	false	RP11-736E3.1	ENST00000441928	true	true	false	false	2.017	Upstream	NonCoding	antisense	-1	0	-1	-1	3

@@ -1,0 +1,4 @@
+SampleId	ClusterId	ChainId	SvId	Type	ResolvedType	IsSynthetic	ChrStart	ChrEnd	PosStart	PosEnd	OrientStart	OrientEnd	InfoStart	InfoEnd	Ploidy
+EGAF00000827249	2	1	0	DUP	DUP	false	9	9	37329567	37329641	-1	1	NORMAL	NORMAL	0.7293
+EGAF00000827249	1	1	1	SGL	LOW_VAF	false	10	-1	42797291	0	-1	0	NORMAL		0.0580
+EGAF00000827249	0	1	2	SGL	LOW_VAF	false	16	-1	33954752	0	-1	0	NORMAL		0.1080

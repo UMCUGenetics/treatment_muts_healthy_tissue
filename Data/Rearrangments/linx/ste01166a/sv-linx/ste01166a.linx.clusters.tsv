@@ -1,0 +1,10 @@
+clusterId	resolvedType	synthetic	subClonal	subType	clusterCount	clusterDesc
+0	ARTIFACT	false	true	LOW_VAF	1	BND
+1	ARTIFACT	false	true	LOW_VAF	1	BND
+2	SIMPLE	false	false	SGL_PAIR_INS	2	SGL=2
+3	COMPLEX	false	true	UNBAL_TRANS	1	BND
+5	COMPLEX	false	true	UNBAL_TRANS	1	BND
+6	SIMPLE	false	false	DUP	1	DUP
+8	SIMPLE	false	false	DEL	1	DEL
+9	SIMPLE	false	false	SGL_PAIR_INS	2	SGL=2
+11	COMPLEX	false	true	COMPLEX	4	BND=3_DEL=1

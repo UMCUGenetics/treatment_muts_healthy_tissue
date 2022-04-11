@@ -1,0 +1,4 @@
+clusterId	resolvedType	synthetic	subClonal	subType	clusterCount	clusterDesc
+0	INCOMPLETE	false	true	INF	1	INF
+1	SIMPLE	false	false	DUP	1	DUP
+2	SIMPLE	false	true	DEL	1	DEL

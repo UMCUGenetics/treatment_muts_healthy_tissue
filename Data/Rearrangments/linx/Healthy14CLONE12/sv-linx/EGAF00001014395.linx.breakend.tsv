@@ -1,0 +1,16 @@
+Id	SvId	IsStart	Gene	TranscriptId	Canonical	IsUpstream	Disruptive	ReportedDisruption	UndisruptedCopyNumber	RegionType	CodingContext	Biotype	ExonBasePhase	NextSpliceRank	NextSplicePhase	NextSpliceDistance	TotalExonCount
+0	2	false	CTD-2522B17.5	ENST00000566406	true	false	false	false	1.209	Upstream	NonCoding	processed_pseudogene	-1	1	-1	15540	1
+1	2	false	CTD-2522B17.4	ENST00000566845	true	false	false	false	1.209	Upstream	NonCoding	processed_pseudogene	-1	1	-1	10326	1
+2	2	false	AC136932.2	ENST00000583871	true	false	false	false	1.209	Upstream	NonCoding	miRNA	-1	1	-1	8778	1
+3	2	false	AC136932.1	ENST00000385251	true	true	false	false	1.209	Upstream	NonCoding	miRNA	-1	0	-1	9876	1
+4	2	false	RNA5-8SP2	ENST00000363564	true	true	false	false	1.209	Upstream	NonCoding	rRNA	-1	0	-1	-6853	1
+5	3	true	ANKRD30BL	ENST00000295181	true	true	false	false	1.977	Upstream	Coding	nonsense_mediated_decay	-1	0	-1	17797	7
+6	3	true	RNA5-8SP5	ENST00000365304	true	true	false	false	1.977	Upstream	NonCoding	rRNA	-1	0	-1	-11015	1
+7	3	true	MIR663B	ENST00000408361	true	true	false	false	1.977	Upstream	NonCoding	miRNA	-1	0	-1	-10126	1
+8	3	true	ZNF806	ENST00000438300	true	false	false	false	1.977	Upstream	NonCoding	unprocessed_pseudogene	-1	2	-1	44774	3
+9	3	true	FAM201B	ENST00000545408	true	false	false	false	1.977	Upstream	NonCoding	processed_pseudogene	-1	1	0	84572	1
+10	3	false	CTD-2522B17.5	ENST00000566406	true	true	false	false	1.201	Upstream	NonCoding	processed_pseudogene	-1	0	-1	-12579	1
+11	3	false	CTD-2522B17.4	ENST00000566845	true	true	false	false	1.201	Upstream	NonCoding	processed_pseudogene	-1	0	-1	-11031	1
+12	3	false	AC136932.2	ENST00000583871	true	true	false	false	1.201	Upstream	NonCoding	miRNA	-1	0	-1	5451	1
+13	3	false	AC136932.1	ENST00000385251	true	false	false	false	1.201	Upstream	NonCoding	miRNA	-1	1	-1	4600	1
+14	3	false	RNA5-8SP2	ENST00000363564	true	false	false	false	1.201	Upstream	NonCoding	rRNA	-1	1	-1	8374	1

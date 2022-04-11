@@ -1,0 +1,3 @@
+svId	clusterId	clusterReason	fragileSiteStart	fragileSiteEnd	isFoldback	lineTypeStart	lineTypeEnd	ploidyMin	ploidyMax	geneStart	geneEnd	replicationTimingStart	replicationTimingEnd	localTopologyIdStart	localTopologyIdEnd	localTopologyStart	localTopologyEnd	localTICountStart	localTICountEnd
+1	1		false	false	false	None	None	0.0309	1.6995	SLC26A9;RP4-681L3.2	SLC26A9;RP4-681L3.2	0.5264	0.5264	0	0	DSB	DSB	0	0
+3	0		false	false	false	None	None	-0.0864	0.1703	PPP3CC	PPP3CC	0.0000	0.0000	0	0	SAME_ORIENT	SAME_ORIENT	0	0

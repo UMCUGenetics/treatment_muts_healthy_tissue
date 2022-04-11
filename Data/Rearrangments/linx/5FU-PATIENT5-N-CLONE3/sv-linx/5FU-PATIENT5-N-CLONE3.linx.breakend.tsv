@@ -1,0 +1,5 @@
+Id	SvId	IsStart	Gene	TranscriptId	Canonical	IsUpstream	Disruptive	ReportedDisruption	UndisruptedCopyNumber	RegionType	CodingContext	Biotype	ExonBasePhase	NextSpliceRank	NextSplicePhase	NextSpliceDistance	TotalExonCount
+0	1	true	ERC2	ENST00000288221	true	false	false	false	2.005753	Intronic	Coding	protein_coding	-1	15	2	19769	18
+1	1	false	RP1-159G19.1	ENST00000438797	true	true	false	false	2.006712	Upstream	NonCoding	lincRNA	-1	0	-1	-48582	3
+2	1	false	AL132875.1	ENST00000408543	true	true	false	false	2.006712	Upstream	NonCoding	miRNA	-1	0	-1	41416	1
+3	1	false	RPL35AP18	ENST00000404414	true	false	false	false	2.006712	Upstream	NonCoding	processed_pseudogene	-1	1	-1	88748	1

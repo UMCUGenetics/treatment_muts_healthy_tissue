@@ -1,0 +1,15 @@
+svId	clusterId	clusterReason	fragileSiteStart	fragileSiteEnd	isFoldback	lineTypeStart	lineTypeEnd	ploidyMin	ploidyMax	geneStart	geneEnd	replicationTimingStart	replicationTimingEnd	localTopologyIdStart	localTopologyIdEnd	localTopologyStart	localTopologyEnd	localTICountStart	localTICountEnd
+0	3		false	false	false	None	None	0.3458	2.1775	SLC2A5;SCARNA16	SLC2A5;SCARNA16	0.7095	0.7095	0	0	DSB	DSB	0	0
+1	4		false	false	false	None	None	0.3764	2.1005	ZSWIM5	ZSWIM5	0.7442	0.7442	0	0	DSB	DSB	0	0
+2	6		false	false	false	None	None	-0.0848	1.7915	RAD54L2	RAD54L2	0.7042	0.7042	0	0	SIMPLE_DUP	SIMPLE_DUP	0	0
+3	7		false	false	false	None	None	0.3645	0.9815	HSPE1P19	HSPE1P19	0.2695	0.0000	0	-1	ISOLATED_BE		0	0
+4	8		false	false	false	None	None	0.0276	1.7729	GUCA1C	GUCA1C	0.2403	0.2403	0	0	DSB	DSB	0	0
+7	9		false	false	false	None	None	0.4002	1.0378			0.1698	0.0000	0	-1	ISOLATED_BE		0	0
+13	10		false	false	false	None	None	0.2389	1.9805	RP11-1080G15.1;RP11-618M23.1	RP11-1080G15.1;RP11-618M23.1	0.7569	0.7569	0	0	DSB	DSB	0	0
+14	0		false	false	false	None	None	-0.0694	0.1616	RP11-726G23.11;RP11-359P18.2	RP11-726G23.11;RP11-359P18.2	0.0000	0.0000	0	-1	ISOLATED_BE		0	0
+15	12		false	false	false	None	None	-0.0066	1.7110	C9orf129	C9orf129	0.6506	0.6506	0	0	DSB	DSB	0	0
+17	1		false	false	false	None	None	0.1215	1.9037	PARVA	PARVA	0.7254	0.7259	0	0	DSB	DSB	0	0
+18	2		false	false	false	None	None	0.1181	1.7898			0.5093	0.5093	0	0	DSB	DSB	0	0
+19	5		false	false	false	None	None	0.0202	1.9933	NBEA	NBEA	0.2687	0.2687	0	0	SIMPLE_DUP	SIMPLE_DUP	0	0
+22	11	Prox_23	false	false	false	None	None	0.3093	2.9124			0.0992	0.0000	0	-1	DSB		0	0
+23	11	Prox_22	false	false	false	None	None	-0.4695	3.6895			0.0992	0.0000	0	-1	DSB		0	0

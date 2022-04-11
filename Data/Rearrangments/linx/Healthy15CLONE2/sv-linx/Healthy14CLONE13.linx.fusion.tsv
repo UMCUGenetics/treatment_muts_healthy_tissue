@@ -1,0 +1,3 @@
+FivePrimeBreakendId	ThreePrimeBreakendId	Name	Reported	ReportedType	Phased	ChainLength	ChainLinks	ChainTerminated	DomainsKept	DomainsLost	SkippedExonsUp	SkippedExonsDown	FusedExonUp	FusedExonDown
+2	8	IFNLR1_STPG1	false		true	0	0	false			2	0	2	8
+34	36	MAN1A1_MYO1D	false		true	0	0	false	IQ motif	Myosin head	0	0	6	2

@@ -1,0 +1,2 @@
+chromosome	chromosomeBand	gene	driver	category	likelihoodMethod	driverLikelihood	dndsLikelihood	missense	nonsense	splice	inframe	frameshift	biallelic	minCopyNumber	maxCopyNumber
+6	q26	PARK2	DEL	TSG	DEL	1.0000	0.0000	0	0	0	0	0	true	0.0532	1.9613

@@ -1,0 +1,6 @@
+clusterId	resolvedType	synthetic	subClonal	subType	clusterCount	clusterDesc
+0	SIMPLE	false	false	DEL	1	DEL
+1	SIMPLE	false	false	DEL	1	DEL
+2	SIMPLE	false	false	DEL	1	DEL
+3	COMPLEX	false	false	PAIR_OTHER	2	BND=2
+4	COMPLEX	false	false	COMPLEX	8	DEL=8

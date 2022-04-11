@@ -1,0 +1,7 @@
+clusterId	chainId	chainIndex	chainCount	lowerBreakendId	upperBreakendId	lowerBreakendIsStart	upperBreakendIsStart	chromosome	arm	assembled	traversedSVCount	length	ploidy	ploidyUncertainty	pseudogeneInfo
+4	0	0	5	11	12	false	true	19	Q	false	0	104	0.4131	0.2266	CIC;ENST00000572681;10;103;-1;0;false;0;0;true
+4	0	1	5	12	13	false	true	19	Q	false	0	3049	0.4131	0.2266	CIC;ENST00000572681;11;1233;-1;0;true;0;1815;false
+4	0	2	5	13	15	false	true	19	Q	false	0	497	0.4131	0.2266	CIC;ENST00000572681;17;244;0;0;false;0;253;false
+4	0	3	5	15	16	false	true	19	Q	false	0	562	0.4131	0.2266	CIC;ENST00000572681;19;131;-1;0;false;0;430;false
+4	1	0	3	9	10	false	true	19	Q	false	0	2318	0.4131	0.151	CIC;ENST00000572681;3;149;-1;0;false;0;2168;false
+4	1	1	3	10	14	false	true	19	Q	false	0	4658	0.4131	0.151	CIC;ENST00000572681;9;225;-2;0;false;0;4431;false

@@ -1,0 +1,9 @@
+Id	SvId	IsStart	Gene	TranscriptId	Canonical	IsUpstream	Disruptive	ReportedDisruption	UndisruptedCopyNumber	RegionType	CodingContext	Biotype	ExonBasePhase	NextSpliceRank	NextSplicePhase	NextSpliceDistance	TotalExonCount
+0	3	true	GUSBP1	ENST00000607545	true	true	false	false	1.5859999999999999	Intronic	NonCoding	processed_transcript	-1	4	-1	56116	5
+1	3	true	RP11-823P9.3	ENST00000502532	true	false	false	false	1.5859999999999999	Upstream	NonCoding	processed_pseudogene	-1	1	-1	73931	1
+2	3	true	RP11-360I2.1	ENST00000606105	true	true	false	false	1.5859999999999999	Upstream	NonCoding	lincRNA	-1	0	-1	13223	1
+3	3	true	RP11-804N13.1	ENST00000522350	true	true	false	false	1.5859999999999999	Upstream	NonCoding	antisense	-1	0	-1	-27588	4
+4	3	false	GUSBP1	ENST00000607545	true	false	false	false	1.589	Intronic	NonCoding	processed_transcript	-1	5	-1	27549	5
+5	3	false	RP11-823P9.3	ENST00000502532	true	true	false	false	1.589	Upstream	NonCoding	processed_pseudogene	-1	0	-1	-1	1
+6	3	false	RP11-360I2.1	ENST00000606105	true	false	false	false	1.589	Upstream	NonCoding	lincRNA	-1	1	-1	11774	1
+7	3	false	RP11-804N13.1	ENST00000522350	true	false	false	false	1.589	Upstream	NonCoding	antisense	-1	2	-1	65990	4

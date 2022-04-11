@@ -1,0 +1,7 @@
+svId	clusterId	clusterReason	fragileSiteStart	fragileSiteEnd	isFoldback	lineTypeStart	lineTypeEnd	ploidyMin	ploidyMax	geneStart	geneEnd	replicationTimingStart	replicationTimingEnd	localTopologyIdStart	localTopologyIdEnd	localTopologyStart	localTopologyEnd	localTICountStart	localTICountEnd
+0	0		false	false	false	None	None	0.2126	1.9498	GPR61	GPR61	0.7315	0.7315	0	0	DSB	DSB	0	0
+2	3		false	false	false	None	None	-0.1410	1.5310	MAML3	MAML3	0.6138	0.6136	0	0	DSB	DSB	0	0
+3	4		false	false	false	None	None	-0.1136	1.5682	TMC5	TMC5	0.7350	0.7350	0	0	DSB	DSB	0	0
+4	2	Prox_5	false	false	false	None	None	0.7005	1.3212	MICU2;RNU6-59P	MICU2;RNU6-59P	0.6011	0.7612	1	2	ISOLATED_BE	TI_ONLY	0	1
+5	2	Prox_4	false	false	false	None	None	0.6725	1.2890	MICU2	MICU2	0.6187	0.7612	0	2	ISOLATED_BE	TI_ONLY	0	1
+6	5		false	false	false	None	None	0.0287	1.6681	TEX2	TEX2	0.7218	0.7218	0	0	DSB	DSB	0	0

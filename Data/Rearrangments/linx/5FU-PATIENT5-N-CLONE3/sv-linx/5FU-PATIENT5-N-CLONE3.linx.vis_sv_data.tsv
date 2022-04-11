@@ -1,0 +1,2 @@
+SampleId	ClusterId	ChainId	SvId	Type	ResolvedType	IsSynthetic	ChrStart	ChrEnd	PosStart	PosEnd	OrientStart	OrientEnd	InfoStart	InfoEnd	Ploidy
+5FU-PATIENT5-N-CLONE3	0	1	1	BND	LINE	false	3	6	55788715	80585184	1	-1	NORMAL	NORMAL	0.0461

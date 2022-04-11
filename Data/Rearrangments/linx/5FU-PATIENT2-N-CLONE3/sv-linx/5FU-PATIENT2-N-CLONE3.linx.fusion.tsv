@@ -1,0 +1,2 @@
+FivePrimeBreakendId	ThreePrimeBreakendId	Name	Reported	ReportedType	Phased	ChainLength	ChainLinks	ChainTerminated	DomainsKept	DomainsLost	SkippedExonsUp	SkippedExonsDown	FusedExonUp	FusedExonDown
+121	159	PHKB_ANKRD30BL	false		true	512	1	false	Ankyrin repeat-containing domain;Ankyrin repeat		1	0	3	2

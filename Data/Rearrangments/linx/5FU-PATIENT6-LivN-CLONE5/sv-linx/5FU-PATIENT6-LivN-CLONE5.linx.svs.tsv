@@ -1,0 +1,3 @@
+svId	clusterId	clusterReason	fragileSiteStart	fragileSiteEnd	isFoldback	lineTypeStart	lineTypeEnd	ploidyMin	ploidyMax	geneStart	geneEnd	replicationTimingStart	replicationTimingEnd	localTopologyIdStart	localTopologyIdEnd	localTopologyStart	localTopologyEnd	localTICountStart	localTICountEnd
+3	0		false	false	false	None	None	-0.2701	1.4407	FAM69A;RP11-386I23.1	FAM69A;RP11-386I23.1	0.7228	0.7222	0	0	DSB	DSB	0	0
+6	1		false	false	false	None	None	0.3084	0.9276			0.2616	0.0000	0	-1	ISOLATED_BE		0	0

@@ -1,0 +1,4 @@
+SampleId	ClusterId	ChainId	SvId	Type	ResolvedType	IsSynthetic	ChrStart	ChrEnd	PosStart	PosEnd	OrientStart	OrientEnd	InfoStart	InfoEnd	Ploidy
+C30913DClone13	0	1	0	DUP	DUP	false	1	1	24486959	24690785	-1	1	NORMAL	NORMAL	0.6445
+C30913DClone13	1	1	8	DEL	DEL	false	12	12	120729549	120729588	1	-1	NORMAL	NORMAL	0.9625
+C30913DClone13	2	1	9	DUP	DUP	false	15	15	30175217	30208217	-1	1	NORMAL	NORMAL	0.6658

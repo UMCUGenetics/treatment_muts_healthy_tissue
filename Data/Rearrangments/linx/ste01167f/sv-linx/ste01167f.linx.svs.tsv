@@ -1,0 +1,23 @@
+svId	clusterId	clusterReason	fragileSiteStart	fragileSiteEnd	isFoldback	lineTypeStart	lineTypeEnd	ploidyMin	ploidyMax	geneStart	geneEnd	replicationTimingStart	replicationTimingEnd	localTopologyIdStart	localTopologyIdEnd	localTopologyStart	localTopologyEnd	localTICountStart	localTICountEnd
+3	9	Prox_4	false	false	false	None	None	47.4856	94.7046	DNER	DNER	0.5650	0.0000	0	-1	DSB		0	0
+4	9	Prox_3	false	false	false	None	None	47.2285	94.4155	DNER	DNER	0.5650	0.0000	0	-1	DSB		0	0
+6	0		false	false	false	None	None	0.0227	0.3108			0.0000	0.0000	0	-1	ISOLATED_BE		0	0
+13	12	Prox_14	false	false	false	None	None	7.4542	17.9220			0.4397	0.0000	0	-1	DSB		0	0
+14	12	Prox_13	false	false	false	None	None	7.2081	17.6155			0.4397	0.0000	0	-1	DSB		0	0
+15	1		false	false	false	None	None	-0.2358	0.3643			0.0000	0.0000	0	1	ISOLATED_BE	ISOLATED_BE	0	0
+16	3		false	false	false	None	None	-0.2018	0.3693			0.6706	0.6798	1	0	ISOLATED_BE	ISOLATED_BE	0	0
+17	4		false	false	false	None	None	-0.1539	0.2964	KIAA0825	KIAA0825	0.7398	0.6730	1	0	ISOLATED_BE	ISOLATED_BE	0	0
+19	5	Prox_20	false	false	false	None	None	84.3641	160.9227	RORA	RORA	0.3192	0.0000	0	-1	DSB		0	0
+20	5	Prox_19	false	false	false	None	None	84.4990	160.9826	RORA	RORA	0.3192	0.0000	0	-1	DSB		0	0
+21	2		false	false	false	None	None	-0.0250	0.2356			0.0000	0.0000	0	1	ISOLATED_BE	ISOLATED_BE	0	0
+22	6		false	false	false	None	None	-0.1391	0.3406			0.1229	0.4491	0	1	ISOLATED_BE	ISOLATED_BE	0	0
+23	7		false	false	false	None	None	-0.5947	0.6939	MYO1D	MYO1D	0.2776	0.2770	0	0	DSB	DSB	0	0
+25	15	Prox_26	false	false	false	None	None	-0.6294	0.6457	MIR3648;MIR3687	MIR3648;MIR3687	0.2292	0.2292	3	3	COMPLEX_OTHER	COMPLEX_OTHER	0	0
+26	15	Prox_25	false	false	false	None	None	-0.6166	0.6654	MIR3648;MIR3687	MIR3648;MIR3687	0.2292	0.2292	3	3	COMPLEX_OTHER	COMPLEX_OTHER	0	0
+27	15	Prox_26	false	false	false	None	None	-0.6301	0.6492			0.2292	0.2291	3	3	COMPLEX_OTHER	COMPLEX_OTHER	0	0
+28	15	Prox_27	false	false	false	None	None	-0.1633	0.3468	AC004866.1	AC004866.1	0.6374	0.2290	1	3	ISOLATED_BE	COMPLEX_OTHER	0	0
+29	15	Prox_28	false	false	false	None	None	-0.1881	0.4033	ANKRD30BL;RNA5-8SP5;CDC27P1	ANKRD30BL;RNA5-8SP5;CDC27P1	0.3699	0.2290	0	3	ISOLATED_BE	COMPLEX_OTHER	0	0
+31	11	Prox_32	false	false	false	None	None	56.3819	107.9518	ARSF	ARSF	0.3268	0.0000	0	-1	DSB		0	0
+32	11	Prox_31	false	false	false	None	None	53.8882	105.1122	ARSF	ARSF	0.3268	0.0000	0	-1	DSB		0	0
+33	15	Prox_29	false	false	false	None	None	0.5966	1.7711			0.2290	0.0000	3	2	COMPLEX_OTHER	ISOLATED_BE	0	0
+34	14		false	false	false	None	None	-0.1709	0.2132			0.0000	0.0000	0	1	ISOLATED_BE	ISOLATED_BE	0	0

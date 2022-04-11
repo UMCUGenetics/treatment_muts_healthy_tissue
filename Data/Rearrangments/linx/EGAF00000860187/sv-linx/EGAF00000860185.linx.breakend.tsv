@@ -1,0 +1,7 @@
+Id	SvId	IsStart	Gene	TranscriptId	Canonical	IsUpstream	Disruptive	ReportedDisruption	UndisruptedCopyNumber	RegionType	CodingContext	Biotype	ExonBasePhase	NextSpliceRank	NextSplicePhase	NextSpliceDistance	TotalExonCount
+0	2	true	MAP2	ENST00000360351	true	true	false	false	2.0176459999999996	Upstream	5P_UTR	protein_coding	-1	0	-1	-1	15
+1	2	false	AC005152.3	ENST00000430908	true	false	false	false	2.0271299999999997	Upstream	NonCoding	lincRNA	-1	2	-1	58485	3
+2	2	false	RP11-84E24.2	ENST00000540802	true	false	false	false	2.0271299999999997	Upstream	NonCoding	lincRNA	-1	2	-1	26717	3
+3	2	false	SOX9-AS1	ENST00000434703	true	false	true	false	2.0271299999999997	Intronic	NonCoding	lincRNA	-1	4	-1	419	7
+4	2	false	AC007461.2	ENST00000419257	true	true	true	false	2.0271299999999997	Intronic	NonCoding	lincRNA	-1	4	-1	486	6
+5	2	false	SOX9	ENST00000245479	true	true	false	false	2.0271299999999997	Upstream	Coding	protein_coding	-1	0	-1	-8483	3

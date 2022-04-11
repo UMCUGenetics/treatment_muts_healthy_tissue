@@ -1,0 +1,2 @@
+SampleId	ClusterId	ChainId	SvId	Type	ResolvedType	IsSynthetic	ChrStart	ChrEnd	PosStart	PosEnd	OrientStart	OrientEnd	InfoStart	InfoEnd	Ploidy
+EGAF00000860185	0	1	2	BND	LOW_VAF	false	2	17	210320949	70080588	1	1	NORMAL	NORMAL	0.0256

@@ -1,0 +1,63 @@
+svId	clusterId	clusterReason	fragileSiteStart	fragileSiteEnd	isFoldback	lineTypeStart	lineTypeEnd	ploidyMin	ploidyMax	geneStart	geneEnd	replicationTimingStart	replicationTimingEnd	localTopologyIdStart	localTopologyIdEnd	localTopologyStart	localTopologyEnd	localTICountStart	localTICountEnd
+0	22	Prox_18	false	false	false	None	None	-0.6680	2.9480			0.5939	0.0000	0	-1	DSB		0	0
+1	22	Prox_19	false	false	false	None	None	31.1125	120.4675			0.3712	0.0000	1	-1	ISOLATED_BE		1	0
+2	23		false	false	false	None	None	-0.1012	1.6633	ZNF619	ZNF619	0.4967	0.4967	0	0	DSB	DSB	0	0
+3	24		true	true	false	None	None	-0.2367	1.5739	FHIT	FHIT	0.0868	0.0868	0	0	SIMPLE_DUP	SIMPLE_DUP	0	0
+4	11	Prox_52	false	false	false	None	None	0.8155	1.2392			0.6827	0.7063	0	1	DSB	DSB	0	0
+5	25		false	false	false	None	None	0.2312	1.9886	ATR	ATR	0.6724	0.6724	0	0	DSB	DSB	0	0
+6	26		false	false	false	None	None	0.7164	1.5132			0.3335	0.3335	0	0	DSB	DSB	0	0
+7	27	Prox_8	false	false	false	None	None	0.3249	2.0892			0.2642	0.2645	0	0	DSB	DSB	2	2
+8	27	Prox_7	false	false	false	None	None	0.6591	1.7260			0.2638	0.2645	0	0	DSB	DSB	2	2
+9	27	Prox_7	false	false	false	None	None	0.2226	1.9677			0.2642	0.2649	0	0	DSB	DSB	2	2
+10	18	Prox_68	false	false	false	None	None	2.4937	91.5969	HFM1	HFM1	0.5953	0.6721	0	1	TI_ONLY	DSB	1	0
+11	18	Prox_10	false	false	false	None	None	12.8729	53.1071	PPEF2	PPEF2	0.6721	0.0000	1	-1	DSB		0	0
+12	28		false	false	false	None	None	0.6824	1.3610	RASGEF1B;RP11-689K5.3	RASGEF1B;RP11-689K5.3	0.1362	0.1362	0	0	DSB	DSB	0	0
+13	20	Prox_14;ComArm_15	false	false	false	None	None	0.7512	1.4553	PRKCE	PRKCE	0.7192	0.7319	1	2	ISOLATED_BE	DSB	0	0
+14	20	Prox_13	false	false	false	None	None	-0.6052	3.1852			0.7319	0.0000	2	-1	DSB		0	0
+15	20	Prox_16;ComArm_13	false	false	false	None	None	0.7509	1.4625	SRBD1	SRBD1	0.7364	0.7550	0	3	ISOLATED_BE	DSB	0	0
+16	20	Prox_15	false	false	false	None	None	-0.5114	3.4714	RP11-576N17.5;RP11-576N17.3	RP11-576N17.5;RP11-576N17.3	0.7550	0.0000	3	-1	DSB		0	0
+17	29		false	false	false	None	None	0.4376	2.2039	RP11-565A3.2;RP11-565A3.1	RP11-565A3.2;RP11-565A3.1	0.2481	0.2485	0	0	DSB	DSB	0	0
+18	22	Prox_0	false	false	false	None	None	0.1663	2.1371			0.5939	0.5073	0	2	DSB	ISOLATED_BE	0	1
+19	22	Prox_1	false	false	false	None	None	26.4920	62.5131			0.3712	0.5073	1	2	ISOLATED_BE	ISOLATED_BE	1	1
+20	30		false	false	false	None	None	0.1488	1.9064			0.2827	0.2835	0	0	DSB	DSB	0	0
+21	31		false	false	false	None	None	-0.0538	1.6599			0.5786	0.5786	0	0	DSB	DSB	0	0
+22	32		false	false	false	None	None	0.1965	1.9991			0.0970	0.0970	0	0	DSB	DSB	0	0
+23	33	Prox_24	false	false	false	None	None	0.2288	1.9033	SNX9;RP11-52J3.2	SNX9;RP11-52J3.2	0.7543	0.6754	0	1	DSB	DSB	0	0
+24	33	Prox_23	false	false	false	None	None	0.1413	1.8148	SNX9;RP11-52J3.2	SNX9;RP11-52J3.2	0.7543	0.6754	0	1	DSB	DSB	0	0
+25	34		false	false	false	None	None	0.2486	1.9311	FAM20C	FAM20C	0.4951	0.4954	0	0	DSB	DSB	0	0
+26	37		false	false	false	None	None	-0.0866	1.6575	ZNF277	ZNF277	0.5668	0.5668	0	0	DSB	DSB	0	0
+27	38		false	false	false	None	None	0.2084	1.8865			0.1306	0.1305	0	0	DSB	DSB	0	0
+28	36	Prox_29	false	false	false	None	None	0.6103	1.3056			0.5502	0.3614	1	2	ISOLATED_BE	DSB	0	0
+29	36	Prox_28	false	false	false	None	None	0.6242	1.3216			0.5706	0.3614	0	2	ISOLATED_BE	DSB	0	0
+32	41		false	false	false	None	None	0.2171	1.9782	TRPM3	TRPM3	0.2617	0.2617	0	0	DSB	DSB	0	0
+33	39	Prox_34	false	false	false	None	None	0.0612	1.7278	SHH	SHH	0.4100	0.2705	0	1	DSB	DSB	0	0
+34	39	Prox_33	false	false	false	None	None	0.1031	1.7579	SHH	SHH	0.4100	0.2705	0	1	DSB	DSB	0	0
+35	0		false	false	false	None	None	0.2763	2.0523	OR56B4	OR56B4	0.2517	0.2517	0	0	DSB	DSB	0	0
+36	1		false	false	false	None	None	0.0634	1.7812	PRR5L	PRR5L	0.6868	0.6868	0	0	DSB	DSB	0	0
+37	2	Prox_38	false	false	false	None	None	0.2669	1.9406	KDELC2	KDELC2	0.6626	0.6626	0	0	DSB	DSB	1	1
+38	2	Prox_37	false	false	false	None	None	0.2538	1.9283	KDELC2	KDELC2	0.6626	0.6631	0	0	DSB	DSB	1	1
+39	3		false	false	false	None	None	0.1487	1.9065			0.4141	0.4141	0	0	DSB	DSB	0	0
+42	44	Prox_43	false	false	false	None	None	0.2928	1.3414			0.5866	0.5868	0	0	DSB	DSB	0	0
+43	45	Prox_42	false	false	false	None	None	0.5674	2.3836			0.5870	0.5870	0	0	DSB	DSB	0	0
+44	5		false	false	false	None	None	0.7119	1.2124			0.3496	0.3522	0	1	ISOLATED_BE	ISOLATED_BE	0	0
+46	6		false	false	false	None	None	0.1016	1.8634			0.3556	0.3562	0	0	DSB	DSB	0	0
+49	8		false	false	false	None	None	0.3689	2.1190			0.1206	0.1206	0	0	DSB	DSB	0	0
+50	9		false	false	false	None	None	-0.0782	1.6196			0.0642	0.0642	0	0	DSB	DSB	0	0
+51	10		false	false	false	None	None	-0.0150	1.7600	FBXO31;RP11-178L8.9	FBXO31;RP11-178L8.9	0.7275	0.7275	0	0	DSB	DSB	0	0
+52	11	Prox_53	false	false	false	None	None	0.2478	1.9637			0.6827	0.7617	0	2	DSB	DSB	0	0
+53	11	Prox_52	false	false	false	None	None	0.8257	1.2492			0.7063	0.7617	1	2	DSB	DSB	0	0
+56	12		false	false	false	None	None	0.3185	0.7423	PRKCA	PRKCA	0.7141	0.7081	0	1	ISOLATED_BE	ISOLATED_BE	0	0
+58	13		false	false	false	None	None	-0.0756	1.6750			0.4158	0.4158	0	0	DSB	DSB	0	0
+59	14		false	false	false	None	None	-0.1025	1.5812			0.6920	0.6927	0	0	DSB	DSB	0	0
+60	15	Prox_61	false	false	false	None	None	-0.1052	1.4570	GATAD2A	GATAD2A	0.7877	0.7878	0	0	COMPLEX_OTHER	COMPLEX_OTHER	0	0
+61	15	Prox_60	false	false	false	None	None	-0.0423	1.5317	GATAD2A	GATAD2A	0.7877	0.7878	0	0	COMPLEX_OTHER	COMPLEX_OTHER	0	0
+62	22	Prox_18	false	false	false	None	None	0.0000	0.5600			0.5073	0.2644	2	4	ISOLATED_BE	ISOLATED_BE	1	0
+63	46	Prox_64	false	false	false	None	None	-0.2803	1.3019	CTC-400I9.1	CTC-400I9.1	0.2083	0.2078	0	0	DSB	DSB	0	0
+64	47	Prox_63	false	false	false	None	None	-0.2550	1.3986	CTC-400I9.1	CTC-400I9.1	0.2073	0.2073	0	0	DSB	DSB	0	0
+65	22	Prox_66	false	false	false	None	None	-0.5572	0.6771	PHKB;RNA5SP425	PHKB;RNA5SP425	0.3474	0.6982	3	5	ISOLATED_BE	TI_ONLY	0	1
+66	22	Prox_65	false	false	false	None	None	10.0397	23.1898			0.3714	0.6982	1	5	ISOLATED_BE	TI_ONLY	1	1
+67	43		false	false	false	None	None	0.0677	1.7944			0.2782	0.2782	0	0	DSB	DSB	0	0
+68	18	Prox_10	false	false	false	None	None	222.2582	394.3963	HFM1	HFM1	0.5953	0.2824	0	2	TI_ONLY	DSB	1	0
+69	18	Prox_68	false	false	false	None	None	185.8485	692.6715	CTD-2328D6.1	CTD-2328D6.1	0.2824	0.0000	2	-1	DSB		0	0
+70	40		false	false	true	None	None	-0.1512	0.2366	WDR44	WDR44	0.6315	0.6305	0	0	FOLDBACK	FOLDBACK	0	0
+73	42		false	false	false	None	None	-0.5774	0.7659			0.2290	0.0000	1	0	ISOLATED_BE	ISOLATED_BE	0	0

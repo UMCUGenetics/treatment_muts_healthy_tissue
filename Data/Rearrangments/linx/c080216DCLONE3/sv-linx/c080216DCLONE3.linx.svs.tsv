@@ -1,0 +1,14 @@
+svId	clusterId	clusterReason	fragileSiteStart	fragileSiteEnd	isFoldback	lineTypeStart	lineTypeEnd	ploidyMin	ploidyMax	geneStart	geneEnd	replicationTimingStart	replicationTimingEnd	localTopologyIdStart	localTopologyIdEnd	localTopologyStart	localTopologyEnd	localTICountStart	localTICountEnd
+0	0		false	false	false	None	None	0.7535	1.2672	RP11-84A19.3	RP11-84A19.3	0.7617	0.7611	0	1	ISOLATED_BE	ISOLATED_BE	0	0
+3	1		false	false	false	None	None	-0.0717	1.6299			0.4308	0.4308	0	0	DSB	DSB	0	0
+8	2		false	false	false	None	None	-0.0850	1.6140	GREB1L;RP11-296E23.1	GREB1L;RP11-296E23.1	0.6948	0.6948	0	0	DSB	DSB	0	0
+9	4	Prox_10	false	false	false	None	None	-0.1052	0.6152	CIC	CIC	0.7931	0.7932	0	0	COMPLEX_OTHER	COMPLEX_OTHER	6	6
+10	4	Prox_9	false	false	false	None	None	-0.4188	1.1414	CIC	CIC	0.7932	0.7932	0	0	COMPLEX_OTHER	COMPLEX_OTHER	6	6
+11	4	Prox_10	false	false	false	None	None	-0.3065	1.2969	CIC	CIC	0.7932	0.7932	0	0	COMPLEX_OTHER	COMPLEX_OTHER	6	6
+12	4	Prox_11	false	false	false	None	None	-0.3616	1.2617	CIC	CIC	0.7932	0.7932	0	0	COMPLEX_OTHER	COMPLEX_OTHER	6	6
+13	4	Prox_12	false	false	false	None	None	-0.3699	1.2291	CIC	CIC	0.7932	0.7931	0	0	COMPLEX_OTHER	COMPLEX_OTHER	6	6
+14	4	Prox_13	false	false	false	None	None	-0.2357	1.3381	CIC	CIC	0.7931	0.7931	0	0	COMPLEX_OTHER	COMPLEX_OTHER	6	6
+15	4	Prox_14	false	false	false	None	None	-0.4320	1.1065	CIC	CIC	0.7931	0.7931	0	0	COMPLEX_OTHER	COMPLEX_OTHER	6	6
+16	4	Prox_15	false	false	false	None	None	-0.3616	1.2118	CIC	CIC	0.7931	0.7931	0	0	COMPLEX_OTHER	COMPLEX_OTHER	6	6
+17	3	Prox_18	false	false	false	None	None	-0.1384	0.2626	AC004866.1	AC004866.1	0.6374	0.2290	0	2	ISOLATED_BE	SAME_ORIENT	0	0
+18	3	Prox_17	false	false	false	None	None	-0.5737	0.7710			0.2290	0.0000	2	1	SAME_ORIENT	ISOLATED_BE	0	0

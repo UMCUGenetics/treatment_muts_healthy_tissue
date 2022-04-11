@@ -1,0 +1,5 @@
+svId	clusterId	clusterReason	fragileSiteStart	fragileSiteEnd	isFoldback	lineTypeStart	lineTypeEnd	ploidyMin	ploidyMax	geneStart	geneEnd	replicationTimingStart	replicationTimingEnd	localTopologyIdStart	localTopologyIdEnd	localTopologyStart	localTopologyEnd	localTICountStart	localTICountEnd
+1	1		false	false	false	None	None	0.1518	2.2628	GHR	GHR	0.3643	0.3654	0	0	SIMPLE_DUP	SIMPLE_DUP	0	0
+2	2		true	true	false	None	None	-0.2014	1.5769	PTPRD	PTPRD	0.0725	0.0725	0	0	SIMPLE_DUP	SIMPLE_DUP	0	0
+3	3		false	false	false	None	None	-0.5363	1.0106	AK8	AK8	0.5679	0.5679	0	0	SIMPLE_DUP	SIMPLE_DUP	0	0
+6	0		false	false	false	None	None	-0.1213	0.1916			0.0000	0.0000	0	0	SAME_ORIENT	SAME_ORIENT	0	0
