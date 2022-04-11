@@ -30,9 +30,6 @@ colors3 <- list(
   `5-FU+radiation` = 'chocolate4',
   `5-FU+platinum+radiation` = 'chocolate1'
 )
-
-
-
 shapings <- list(
   SBS = '21',
   DBS = '22',
@@ -44,7 +41,6 @@ shapings <- list(
 bootstrap_lme <- function(df=NULL, colname_mutations=NULL,iterations=NULL){
   bootstrap_main = expand.grid(pretreated="bootstrap", age = seq(5, 80, by=0.1))
   for(iter in 1:iterations){
-    #print(iter)
     df_subset <- NULL
     df_subset <- df[sample(nrow(df), nrow(df)*0.2), ]
     print(nrow(df_subset))
@@ -52,13 +48,8 @@ bootstrap_lme <- function(df=NULL, colname_mutations=NULL,iterations=NULL){
     if (min(df_subset$age) > 50 | max(df_subset$age) < 50 ) {
       next
     }
-    #lme_model = lme(mut_load ~  age, random = ~ - 1 + age | donor_id, data=df_subset)
-    #lme_non_pretreated_colon = lme(mut_load ~  age, random = ~ - 1 + age | donor_id, data=overview_data[which(overview_data$pretreated=="No"),])
-    
     fml = as.formula(sprintf('%s ~ %s', colname_mutations, "age"))
     lme_model = lme(fml, random = ~ - 1 + age | donor_id, data=df_subset)
-    
-    
     bootstrap = expand.grid(pretreated="bootstrap", age = seq(5, 80, by=0.1))
     bootstrap$fit = predict(lme_model, level=0, newdata=bootstrap)
     colnames(bootstrap)[3] <- paste0("fit_",iter,sep="")
@@ -80,25 +71,17 @@ bootstrap_lme_stats <- function(dfbtstrap=btstrap_mutload){
 
 
 get_Pemp <- function(df_mean=NULL,meancolumn=NULL,btstrapfile=NULL,Pemp.colname=NULL){
-  #Pemp_all <- as.data.frame(matrix(nrow = 0,ncol = 1))
   Pemp_all <- df_mean %>% dplyr::select(donor_id,age,sprintf("%s",meancolumn))
   Pemp_all$P.emp <- NA
-  
   for(i in 1:nrow(df_mean)){
     df_subset <- df_mean[i,]
     simulated_data_age <- observed_mean <- age_donor <- NULL
-    #m1=4399.5 ;s1=516.895057; n1=2
-    #m2=3029.499; s2=116.3092; n2=100
-    #empirical p-value on simulation data
-    #pvalue_emp = sum(array_simulated > observed_value) / len(array_simulated)
     observed_mean <- df_subset %>% dplyr::pull(sprintf("%s",meancolumn))
     age_donor <- df_subset %>% dplyr::pull(age)
     simulated_data_age <- btstrapfile %>% dplyr::filter(age==sprintf("%s",age_donor)) %>% dplyr::select(-pretreated,-age)
     Pemp <- sum(simulated_data_age>=observed_mean)/length(simulated_data_age)
     Pemp_all[i,"P.emp"] <- Pemp
   }
-  #colnames(Pemp_all) <- "P.emp"
-  
   Pemp_all <- Pemp_all %>% dplyr::select(donor_id,age,P.emp)
   colnames(Pemp_all)[3] <- sprintf("%s",Pemp.colname)
   return(Pemp_all)
@@ -109,7 +92,6 @@ get_Pemp <- function(df_mean=NULL,meancolumn=NULL,btstrapfile=NULL,Pemp.colname=
 ###Load datasets###
 ###################
 
-#dirs<-Sys.glob("/Users/avanhoeck//hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/processed/runs//*/purple-2.34")
 dirs<-Sys.glob("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/PurpleVCFs")
 sampleslist=list.files(dirs, pattern = ".purple.somatic.vcf.gz$",full.names=TRUE, recursive = TRUE)
 vcf_files_names = basename(sampleslist) %>% gsub(pattern = "\\..*$",replacement =  "")
@@ -150,8 +132,6 @@ SV_contribution <- as.data.frame(readRDS("/Users/avanhoeck//hpc/cuppen/projects/
 SV_load <- as.data.frame(rowSums(as.data.frame(SV_contribution)))
 colnames(SV_load) <- c("SVmuts")
 SV_load <- SV_load %>% tibble::rownames_to_column("sample_name_R")
-
-
 mut_load <- data.frame(SBS = as.data.frame(rowSums(as.data.frame(t(mut_mat)))),
            indel = as.data.frame(rowSums(as.data.frame(t(indel_counts)))),
            DBS = as.data.frame(rowSums(as.data.frame(t(dbs_counts)))))
@@ -250,22 +230,15 @@ ggplot() +
 Pemp <- get_Pemp(df_mean=summary_table,meancolumn="SBS",btstrapfile=btstrap_SBS,Pemp.colname="P.emp_SBS")
 summary_table <- left_join(summary_table,Pemp,by=c("donor_id","age"))
 
-SBSs <- ggplot() + #overview_data[which(overview_data$pretreated=="No"),]
-  #geom_line(data=newdat1, aes(y=fit, x=age), size=1.5) +
-  #geom_point(shape=1, size=2, colour="black") +
-  #geom_point( size=2, colour="black") +
+SBSs <- ggplot() + 
   geom_line(data=btstrap_SBS_stats, aes(y=bootstrap_mean, x=age),colour="#80BB74",size=0.7,alpha = 0.6) +
   geom_ribbon(data=btstrap_SBS_stats,aes(x=age,ymin=bootstrap_lowerlimit,ymax=bootstrap_upperlimit),alpha=0.2,fill="#80BB74") +
   geom_point(data=summary_table_SBS, aes(x=age, y=SBS,color=factor(treatment)),shape=19, size = 5, stroke = 1)+
   geom_errorbar(data=summary_table_SBS,aes(x=age,ymin=lower_limit_SBS_sd, ymax=upper_limit_SBS_sd,color=treatment),size=0.5, width = 0)+
   ylab("No. SBS mutations (genome-1)") +
-  #scale_colour_manual(values=type_colors) +
-  #facet_wrap( ~ Tissue) +
-  #geom_text(data = age_pval, aes(x = 15, y = 5000, label=paste("P =", format(pval, scientific = T, digits = 3))), size=3.5, colour="black") +
   xlab("Age (years)") +
   scale_fill_manual("Treatment",values=colors3)+
   scale_color_manual("Treatment",values=colors3)+
-  #geom_text(data = age_confint[1,], aes(x = 15, y = 80, label=sprintf("R=59.3 mutations/year", format(est., scientific = F, digits = 3))), size=3, colour="black")+
   scale_y_continuous(
     breaks = c(0,1000,2000,3000,4000,5000,6000),
     expand=c(0,0),
@@ -324,7 +297,6 @@ ggplot() +
   geom_point(data=btstrap_DBS_stats,aes(x=age, y=bootstrap_lowerlimit),colour="Tomato",size=0.5) +
   geom_point(data=summary_table_DBS,aes(x=age, y=predicted_DBS),colour="Red",size=3) +
   geom_point(data=summary_table_DBS,aes(x=age, y=DBS, colour=pretreated),size=5) +
-  #geom_errorbar(data=summary_table,aes(x=age, y=residual_mean,ymin=lower_limit_sd, ymax=upper_limit_sd,color=pretreated),size=0.5, width = 0)+
   ylab("No. DBS mutations (genome-1)") +
   theme_bw(base_size=22) 
 
@@ -332,22 +304,15 @@ ggplot() +
 Pemp <- get_Pemp(df_mean=summary_table,meancolumn="DBS",btstrapfile=btstrap_DBS,Pemp.colname="P.emp_DBS")
 summary_table <- left_join(summary_table,Pemp,by=c("donor_id","age"))
 
-DBSs <- ggplot() + #overview_data[which(overview_data$pretreated=="No"),]
-  #geom_line(data=newdat1, aes(y=fit, x=age), size=1.5) +
-  #geom_point(shape=1, size=2, colour="black") +
-  #geom_point( size=2, colour="black") +
+DBSs <- ggplot() + 
   geom_line(data=btstrap_DBS_stats, aes(y=bootstrap_mean, x=age),colour="#80BB74",size=0.7,alpha = 0.6) +
   geom_ribbon(data=btstrap_DBS_stats,aes(x=age,ymin=bootstrap_lowerlimit,ymax=bootstrap_upperlimit),alpha=0.2,fill="#80BB74") +
   geom_point(data=summary_table_DBS, aes(x=age, y=DBS,color=factor(treatment)),shape=15, size = 5, stroke = 1)+
   geom_errorbar(data=summary_table_DBS,aes(x=age,ymin=lower_limit_DBS_sd, ymax=upper_limit_DBS_sd,color=treatment),size=0.5, width = 0)+
   ylab("No. DBS mutations (genome-1)") +
-  #scale_colour_manual(values=type_colors) +
-  #facet_wrap( ~ Tissue) +
-  #geom_text(data = age_pval, aes(x = 15, y = 5000, label=paste("P =", format(pval, scientific = T, digits = 3))), size=3.5, colour="black") +
   xlab("Age (years)") +
   scale_fill_manual("Treatment",values=colors3)+
   scale_color_manual("Treatment",values=colors3)+
-  #geom_text(data = age_confint[1,], aes(x = 15, y = 80, label=sprintf("R=59.3 mutations/year", format(est., scientific = F, digits = 3))), size=3, colour="black")+
   scale_y_continuous(
     breaks = c(0,25,50,75,100,125,150),
     expand=c(0,0),
@@ -414,22 +379,15 @@ ggplot() +
 Pemp <- get_Pemp(df_mean=summary_table,meancolumn="indel",btstrapfile=btstrap_indel,Pemp.colname="P.emp_indel")
 summary_table <- left_join(summary_table,Pemp,by=c("donor_id","age"))
 
-indels <- ggplot() + #overview_data[which(overview_data$pretreated=="No"),]
-  #geom_line(data=newdat1, aes(y=fit, x=age), size=1.5) +
-  #geom_point(shape=1, size=2, colour="black") +
-  #geom_point( size=2, colour="black") +
+indels <- ggplot() + 
   geom_line(data=btstrap_indel_stats, aes(y=bootstrap_mean, x=age),colour="#80BB74",size=0.7,alpha = 0.6) +
   geom_ribbon(data=btstrap_indel_stats,aes(x=age,ymin=bootstrap_lowerlimit,ymax=bootstrap_upperlimit),alpha=0.2,fill="#80BB74") +
   geom_point(data=summary_table_indel, aes(x=age, y=indel,color=factor(treatment)),shape=17, size = 5, stroke = 1)+
   geom_errorbar(data=summary_table_indel,aes(x=age,ymin=lower_limit_indel_sd, ymax=upper_limit_indel_sd,color=treatment),size=0.5, width = 0)+
   ylab("No. indel mutations (genome-1)") +
-  #scale_colour_manual(values=type_colors) +
-  #facet_wrap( ~ Tissue) +
-  #geom_text(data = age_pval, aes(x = 15, y = 5000, label=paste("P =", format(pval, scientific = T, digits = 3))), size=3.5, colour="black") +
   xlab("Age (years)") +
   scale_fill_manual("Treatment",values=colors3)+
   scale_color_manual("Treatment",values=colors3)+
-  #geom_text(data = age_confint[1,], aes(x = 15, y = 80, label=sprintf("R=59.3 mutations/year", format(est., scientific = F, digits = 3))), size=3, colour="black")+
   scale_y_continuous(
     breaks = c(0,100,200,300,400,500,600),
     expand=c(0,0),
@@ -488,7 +446,6 @@ ggplot() +
   geom_point(data=btstrap_SV_stats,aes(x=age, y=bootstrap_lowerlimit),colour="Tomato",size=0.5) +
   geom_point(data=summary_table_SV,aes(x=age, y=predicted_SV),colour="Red",size=3) +
   geom_point(data=summary_table_SV,aes(x=age, y=SV, colour=pretreated),size=5) +
-  #geom_errorbar(data=summary_table,aes(x=age, y=residual_mean,ymin=lower_limit_sd, ymax=upper_limit_sd,color=pretreated),size=0.5, width = 0)+
   ylab("No. SV mutations (genome-1)") +
   theme_bw(base_size=22) 
 
@@ -496,22 +453,15 @@ ggplot() +
 Pemp <- get_Pemp(df_mean=summary_table_SV,meancolumn="SV",btstrapfile=btstrap_SV,Pemp.colname="P.emp_SV")
 summary_table <- left_join(summary_table,Pemp,by=c("donor_id","age"))
 
-SVs <- ggplot() + #overview_data[which(overview_data$pretreated=="No"),]
-  #geom_line(data=newdat1, aes(y=fit, x=age), size=1.5) +
-  #geom_point(shape=1, size=2, colour="black") +
-  #geom_point( size=2, colour="black") +
+SVs <- ggplot() +
   geom_line(data=btstrap_SV_stats, aes(y=bootstrap_mean, x=age),colour="#80BB74",size=0.7,alpha = 0.6) +
   geom_ribbon(data=btstrap_SV_stats,aes(x=age,ymin=bootstrap_lowerlimit,ymax=bootstrap_upperlimit),alpha=0.2,fill="#80BB74") +
   geom_point(data=summary_table_SV, aes(x=age, y=SV,color=factor(treatment)),shape=18, size = 5, stroke = 1)+
   geom_errorbar(data=summary_table_SV,aes(x=age,ymin=lower_limit_SV_sd, ymax=upper_limit_SV_sd,color=treatment),size=0.5, width = 0)+
   ylab("No. SV mutations (genome-1)") +
-  #scale_colour_manual(values=type_colors) +
-  #facet_wrap( ~ Tissue) +
-  #geom_text(data = age_pval, aes(x = 15, y = 5000, label=paste("P =", format(pval, scientific = T, digits = 3))), size=3.5, colour="black") +
   xlab("Age (years)") +
   scale_fill_manual("Treatment",values=colors3)+
   scale_color_manual("Treatment",values=colors3)+
-  #geom_text(data = age_confint[1,], aes(x = 15, y = 80, label=sprintf("R=59.3 mutations/year", format(est., scientific = F, digits = 3))), size=3, colour="black")+
   scale_y_continuous(
     breaks = c(0,5,10,15,20,25),
     expand=c(0,0),
@@ -567,7 +517,7 @@ age_confint_non_pretreated_liver = intervals(lme_non_pretreated_liver)$fixed["ag
 
 
 summary_table <- overview_data %>% dplyr::select(donor_id,age,tissue,pretreated,treatment,treatment_2,predicted,mut_load,SBSmuts,DBSmuts,indelmuts) %>% 
-  group_by(donor_id) %>% # Group the data by manufacturer
+  group_by(donor_id) %>% 
   summarize(age=max(age),
             tissue=tissue,
             pretreated=pretreated,
@@ -617,7 +567,6 @@ ggplot() +
   geom_point(data=btstrap_SBS_stats,aes(x=age, y=bootstrap_lowerlimit),colour="Tomato",size=0.5) +
   geom_point(data=summary_table_SBS,aes(x=age, y=predicted_SBS),colour="Red",size=3) +
   geom_point(data=summary_table_SBS,aes(x=age, y=SBS, colour=pretreated),size=5) +
-  #geom_errorbar(data=summary_table,aes(x=age, y=residual_mean,ymin=lower_limit_sd, ymax=upper_limit_sd,color=pretreated),size=0.5, width = 0)+
   ylab("No. SBS mutations (genome-1)") +
   theme_bw(base_size=22) 
 
@@ -625,22 +574,15 @@ ggplot() +
 Pemp <- get_Pemp(df_mean=summary_table_SBS,meancolumn="SBS",btstrapfile=btstrap_SBS,Pemp.colname="P.emp_SBS")
 summary_table <- left_join(summary_table,Pemp,by=c("donor_id","age"))
 
-SBSs <- ggplot() + #overview_data[which(overview_data$pretreated=="No"),]
-  #geom_line(data=newdat1, aes(y=fit, x=age), size=1.5) +
-  #geom_point(shape=1, size=2, colour="black") +
-  #geom_point( size=2, colour="black") +
+SBSs <- ggplot() + 
   geom_line(data=btstrap_SBS_stats[which(btstrap_SBS_stats$age>20),], aes(y=bootstrap_mean, x=age),colour="#80BB74",size=0.7,alpha = 0.6) +
   geom_ribbon(data=btstrap_SBS_stats[which(btstrap_SBS_stats$age>20),],aes(x=age,ymin=bootstrap_lowerlimit,ymax=bootstrap_upperlimit),alpha=0.2,fill="#80BB74") +
   geom_point(data=summary_table_SBS, aes(x=age, y=SBS,color=factor(treatment)),shape=19, size = 5, stroke = 1)+
   geom_errorbar(data=summary_table_SBS,aes(x=age,ymin=lower_limit_SBS_sd, ymax=upper_limit_SBS_sd,color=treatment),size=0.5, width = 0)+
   ylab("No. SBS mutations (genome-1)") +
-  #scale_colour_manual(values=type_colors) +
-  #facet_wrap( ~ Tissue) +
-  #geom_text(data = age_pval, aes(x = 15, y = 5000, label=paste("P =", format(pval, scientific = T, digits = 3))), size=3.5, colour="black") +
   xlab("Age (years)") +
   scale_fill_manual("Treatment",values=colors3)+
   scale_color_manual("Treatment",values=colors3)+
-  #geom_text(data = age_confint[1,], aes(x = 15, y = 80, label=sprintf("R=59.3 mutations/year", format(est., scientific = F, digits = 3))), size=3, colour="black")+
   scale_y_continuous(
     breaks = c(0,1000,2000,3000,4000,5000,6000),
     expand=c(0,0),
@@ -705,18 +647,12 @@ ggplot() +
 Pemp <- get_Pemp(df_mean=summary_table_DBS,meancolumn="DBS",btstrapfile=btstrap_DBS,Pemp.colname="P.emp_DBS")
 summary_table <- left_join(summary_table,Pemp,by=c("donor_id","age"))
 
-DBSs <- ggplot() + #overview_data[which(overview_data$pretreated=="No"),]
-  #geom_line(data=newdat1, aes(y=fit, x=age), size=1.5) +
-  #geom_point(shape=1, size=2, colour="black") +
-  #geom_point( size=2, colour="black") +
+DBSs <- ggplot() + 
   geom_line(data=btstrap_DBS_stats[which(btstrap_DBS_stats$age>20),], aes(y=bootstrap_mean, x=age),colour="#80BB74",size=0.7,alpha = 0.6) +
   geom_ribbon(data=btstrap_DBS_stats[which(btstrap_DBS_stats$age>20),],aes(x=age,ymin=bootstrap_lowerlimit,ymax=bootstrap_upperlimit),alpha=0.2,fill="#80BB74") +
   geom_point(data=summary_table_DBS, aes(x=age, y=DBS,color=factor(treatment)),shape=15, size = 5, stroke = 1)+
   geom_errorbar(data=summary_table_DBS,aes(x=age,ymin=lower_limit_DBS_sd, ymax=upper_limit_DBS_sd,color=treatment),size=0.5, width = 0)+
   ylab("No. DBS mutations (genome-1)") +
-  #scale_colour_manual(values=type_colors) +
-  #facet_wrap( ~ Tissue) +
-  #geom_text(data = age_pval, aes(x = 15, y = 5000, label=paste("P =", format(pval, scientific = T, digits = 3))), size=3.5, colour="black") +
   xlab("Age (years)") +
   scale_fill_manual("Treatment",values=colors3)+
   scale_color_manual("Treatment",values=colors3)+
@@ -776,30 +712,21 @@ ggplot() +
   geom_point(data=btstrap_indel_stats,aes(x=age, y=bootstrap_lowerlimit),colour="Tomato",size=0.5) +
   geom_point(data=summary_table_indel,aes(x=age, y=predicted_indel),colour="Red",size=3) +
   geom_point(data=summary_table_indel,aes(x=age, y=indel, colour=pretreated),size=5) +
-  #geom_errorbar(data=summary_table,aes(x=age, y=residual_mean,ymin=lower_limit_sd, ymax=upper_limit_sd,color=pretreated),size=0.5, width = 0)+
   ylab("No. indel mutations (genome-1)") +
   theme_bw(base_size=22) 
 
-#summary_table$P.emp_indel <- NULL
 Pemp <- get_Pemp(df_mean=summary_table_indel,meancolumn="indel",btstrapfile=btstrap_indel,Pemp.colname="P.emp_indel")
 summary_table <- left_join(summary_table,Pemp,by=c("donor_id","age"))
 
-indels <- ggplot() + #overview_data[which(overview_data$pretreated=="No"),]
-  #geom_line(data=newdat1, aes(y=fit, x=age), size=1.5) +
-  #geom_point(shape=1, size=2, colour="black") +
-  #geom_point( size=2, colour="black") +
+indels <- ggplot() + 
   geom_line(data=btstrap_indel_stats[which(btstrap_indel_stats$age>20),], aes(y=bootstrap_mean, x=age),colour="#80BB74",size=0.7,alpha = 0.6) +
   geom_ribbon(data=btstrap_indel_stats[which(btstrap_indel_stats$age>20),],aes(x=age,ymin=bootstrap_lowerlimit,ymax=bootstrap_upperlimit),alpha=0.2,fill="#80BB74") +
   geom_point(data=summary_table_indel, aes(x=age, y=indel,color=factor(treatment)),shape=17, size = 5, stroke = 1)+
   geom_errorbar(data=summary_table_indel,aes(x=age,ymin=lower_limit_indel_sd, ymax=upper_limit_indel_sd,color=treatment),size=0.5, width = 0)+
   ylab("No. indel mutations (genome-1)") +
-  #scale_colour_manual(values=type_colors) +
-  #facet_wrap( ~ Tissue) +
-  #geom_text(data = age_pval, aes(x = 15, y = 5000, label=paste("P =", format(pval, scientific = T, digits = 3))), size=3.5, colour="black") +
   xlab("Age (years)") +
   scale_fill_manual("Treatment",values=colors3)+
   scale_color_manual("Treatment",values=colors3)+
-  #geom_text(data = age_confint[1,], aes(x = 15, y = 80, label=sprintf("R=59.3 mutations/year", format(est., scientific = F, digits = 3))), size=3, colour="black")+
   scale_y_continuous(
     breaks = c(0,100,200,300,400,500,600),
     expand=c(0,0),
@@ -857,7 +784,6 @@ ggplot() +
   geom_point(data=btstrap_SV_stats,aes(x=age, y=bootstrap_lowerlimit),colour="Tomato",size=0.5) +
   geom_point(data=summary_table_SV,aes(x=age, y=predicted_SV),colour="Red",size=3) +
   geom_point(data=summary_table_SV,aes(x=age, y=SV, colour=pretreated),size=5) +
-  #geom_errorbar(data=summary_table,aes(x=age, y=residual_mean,ymin=lower_limit_sd, ymax=upper_limit_sd,color=pretreated),size=0.5, width = 0)+
   ylab("No. SV mutations (genome-1)") +
   theme_bw(base_size=22) 
 
@@ -865,10 +791,7 @@ ggplot() +
 Pemp <- get_Pemp(df_mean=summary_table_SV,meancolumn="SV",btstrapfile=btstrap_SV,Pemp.colname="P.emp_SV")
 summary_table <- left_join(summary_table,Pemp,by=c("donor_id","age"))
 
-SVs <- ggplot() + #overview_data[which(overview_data$pretreated=="No"),]
-  #geom_line(data=newdat1, aes(y=fit, x=age), size=1.5) +
-  #geom_point(shape=1, size=2, colour="black") +
-  #geom_point( size=2, colour="black") +
+SVs <- ggplot() + 
   geom_line(data=btstrap_SV_stats[which(btstrap_SV_stats$age>20),], aes(y=bootstrap_mean, x=age),colour="#80BB74",size=0.7,alpha = 0.6) +
   geom_ribbon(data=btstrap_SV_stats[which(btstrap_SV_stats$age>20),],aes(x=age,ymin=bootstrap_lowerlimit2,ymax=bootstrap_upperlimit2),alpha=0.2,fill="#80BB74") +
   geom_point(data=summary_table_SV, aes(x=age, y=SV,color=factor(treatment)),shape=18, size = 5, stroke = 1)+
