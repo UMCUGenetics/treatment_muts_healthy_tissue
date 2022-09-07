@@ -1,0 +1,14 @@
+svId	clusterId	clusterReason	fragileSiteStart	fragileSiteEnd	isFoldback	lineTypeStart	lineTypeEnd	ploidyMin	ploidyMax	geneStart	geneEnd	replicationTimingStart	replicationTimingEnd	localTopologyIdStart	localTopologyIdEnd	localTopologyStart	localTopologyEnd	localTICountStart	localTICountEnd
+1	3	Prox_3	false	false	false	None	None	-0.8510	2.2330	RGPD2	RGPD2	0.5148	0.0000	0	-1	DSB		0	0
+2	4		false	false	false	None	None	-0.0339	1.8898	EPHA6	EPHA6	0.4610	0.4610	0	0	SIMPLE_DUP	SIMPLE_DUP	0	0
+3	3	Prox_1	false	false	false	None	None	-0.1693	0.3118	RGPD2	RGPD2	0.5148	0.2887	0	1	DSB	ISOLATED_BE	0	0
+4	6		false	false	false	None	None	0.1554	1.9494	FBXO9	FBXO9	0.6172	0.6172	0	0	DSB	DSB	0	0
+5	7		false	false	false	None	None	-0.1017	1.5295			0.5199	0.5199	0	0	DSB	DSB	0	0
+7	0	Prox_16	false	false	false	None	None	0.0942	0.4532	OR5AN1	OR5AN1	0.5044	0.0000	0	-1	DSB		0	0
+8	1		false	false	false	None	None	0.8104	1.3918	SYT7	SYT7	0.6723	0.6716	0	0	DSB	DSB	0	0
+9	2	Prox_17	false	false	false	None	None	-0.2244	1.7535	SYT1;RP11-390N6.1	SYT1;RP11-390N6.1	0.3902	0.0000	1	-1	DSB		0	0
+12	5		true	true	false	None	None	0.8076	1.3212	RP11-72M17.1;GPHN	RP11-72M17.1;GPHN	0.5865	0.5451	0	1	ISOLATED_BE	ISOLATED_BE	0	0
+16	0	Prox_7	false	false	false	None	Known;Suspect	0.0228	0.3182	OR5AN1	OR5AN1	0.5044	0.6545	0	1	DSB	ISOLATED_BE	0	0
+17	2	Prox_18	false	false	false	None	Known;Suspect	-0.2826	1.3357	SYT1;RP11-390N6.1	SYT1;RP11-390N6.1	0.3902	0.7246	1	0	DSB	COMPLEX_LINE	0	0
+18	2	Prox_17	false	false	false	None	Known;Suspect	-0.0586	1.5862			0.3783	0.7246	2	0	DSB	COMPLEX_LINE	0	0
+19	2	Prox_18	false	false	false	None	Known;Suspect	-0.2012	1.4614			0.3783	0.7246	2	0	DSB	COMPLEX_LINE	0	0

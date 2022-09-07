@@ -1,0 +1,9 @@
+clusterId	resolvedType	synthetic	subClonal	subType	clusterCount	clusterDesc
+0	INSERTION	false	true	LINE	2	BND=1_SGL=1
+1	SIMPLE	false	false	DEL	1	DEL
+2	INSERTION	false	false	LINE	4	BND=3_SGL=1
+3	COMPLEX	false	false	PAIR_OTHER	2	BND=1_INF=1
+4	SIMPLE	false	false	DUP	1	DUP
+5	SIMPLE	false	false	DUP	1	DUP
+6	SIMPLE	false	false	DEL	1	DEL
+7	SIMPLE	false	false	DEL	1	DEL

@@ -1,0 +1,8 @@
+svId	clusterId	clusterReason	fragileSiteStart	fragileSiteEnd	isFoldback	lineTypeStart	lineTypeEnd	ploidyMin	ploidyMax	geneStart	geneEnd	replicationTimingStart	replicationTimingEnd	localTopologyIdStart	localTopologyIdEnd	localTopologyStart	localTopologyEnd	localTICountStart	localTICountEnd
+1	0		false	false	false	None	None	-0.1706	0.2237	RP5-965F6.2	RP5-965F6.2	0.0000	0.0000	0	0	SAME_ORIENT	SAME_ORIENT	0	0
+2	1	Prox_14	false	false	false	None	None	-0.4614	3.6814	SLC30A10	SLC30A10	0.5191	0.0000	1	-1	DSB		0	0
+11	2		false	false	false	None	None	0.0010	1.7380	TMC2	TMC2	0.5861	0.5861	0	0	DSB	DSB	0	0
+12	1	Prox_13	false	false	false	None	Known	0.2170	2.2791			0.2398	0.7240	2	0	DSB	COMPLEX_LINE	0	2
+13	1	Prox_12	false	false	false	Known	Known	-0.2284	1.4849	TTC28	TTC28	0.7240	0.7246	0	0	COMPLEX_LINE	COMPLEX_LINE	2	2
+14	1	Prox_13	false	false	false	None	Known	0.1844	2.3840	SLC30A10	SLC30A10	0.5191	0.7246	1	0	DSB	COMPLEX_LINE	0	2
+15	1	Prox_14	false	false	false	None	Known	0.0914	2.2738			0.2398	0.7246	2	0	DSB	COMPLEX_LINE	0	2

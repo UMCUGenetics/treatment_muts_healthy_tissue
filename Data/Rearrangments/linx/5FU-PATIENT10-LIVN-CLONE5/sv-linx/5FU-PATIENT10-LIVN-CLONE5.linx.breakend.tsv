@@ -1,0 +1,17 @@
+Id	SvId	IsStart	Gene	TranscriptId	Canonical	IsUpstream	Disruptive	ReportedDisruption	UndisruptedCopyNumber	RegionType	CodingContext	Biotype	ExonBasePhase	NextSpliceRank	NextSplicePhase	NextSpliceDistance	TotalExonCount
+0	1	true	PDE11A	ENST00000286063	true	false	false	false	1.436	Upstream	Coding	protein_coding	-1	2	0	126429	20
+1	1	true	CYCTP	ENST00000504253	true	false	false	false	1.436	Upstream	NonCoding	unitary_pseudogene	-1	2	-1	94714	3
+2	1	true	OSBPL6	ENST00000392505	true	true	false	false	1.436	Intronic	5P_UTR	protein_coding	-1	1	-1	4510	26
+3	1	false	PDE11A	ENST00000286063	true	true	false	false	1.439	Upstream	Coding	protein_coding	-1	0	-1	-1	20
+4	1	false	CYCTP	ENST00000504253	true	true	false	false	1.439	Upstream	NonCoding	unitary_pseudogene	-1	0	-1	-90878	3
+5	1	false	OSBPL6	ENST00000392505	true	false	false	false	1.439	Intronic	5P_UTR	protein_coding	-1	2	-1	85710	26
+6	3	true	RP11-400N9.1	ENST00000563747	true	false	false	false	1.237	Upstream	NonCoding	antisense	-1	1	-1	49378	1
+7	3	true	DGKD	ENST00000264057	true	true	false	false	1.237	Intronic	Coding	protein_coding	-1	3	0	12311	30
+8	3	true	Y_RNA	ENST00000364143	true	false	false	false	1.237	Upstream	NonCoding	misc_RNA	-1	1	-1	22839	1
+9	3	false	RP11-400N9.1	ENST00000563747	true	true	false	false	1.242	Upstream	NonCoding	antisense	-1	0	-1	-22883	1
+10	3	false	DGKD	ENST00000264057	true	false	false	false	1.242	Intronic	Coding	protein_coding	-1	4	0	31542	30
+11	3	false	Y_RNA	ENST00000364143	true	true	false	false	1.242	Upstream	NonCoding	misc_RNA	-1	0	-1	74665	1
+12	4	true	RP11-802H3.1	ENST00000507715	true	true	false	false	1.1760000000000002	Upstream	NonCoding	processed_pseudogene	-1	0	-1	-1	1
+13	4	true	RP11-802H3.2	ENST00000515263	true	true	false	false	1.1760000000000002	Upstream	NonCoding	lincRNA	-1	0	-1	-30458	2
+14	4	false	RP11-802H3.1	ENST00000507715	true	false	false	false	1.174	Upstream	NonCoding	processed_pseudogene	-1	1	-1	30422	1
+15	4	false	RP11-802H3.2	ENST00000515263	true	false	false	false	1.174	Upstream	NonCoding	lincRNA	-1	2	-1	67485	2

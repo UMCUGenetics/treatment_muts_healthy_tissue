@@ -1,0 +1,11 @@
+Id	SvId	IsStart	Gene	TranscriptId	Canonical	IsUpstream	Disruptive	ReportedDisruption	UndisruptedCopyNumber	RegionType	CodingContext	Biotype	ExonBasePhase	NextSpliceRank	NextSplicePhase	NextSpliceDistance	TotalExonCount
+0	0	true	FMN2	ENST00000319653	true	true	false	false	1.256	Intronic	Coding	protein_coding	-1	2	0	38291	18
+1	0	true	RP11-567G24.1	ENST00000451892	true	false	false	false	1.256	Upstream	NonCoding	processed_pseudogene	-1	1	-1	16247	1
+2	0	true	Y_RNA	ENST00000365171	true	false	false	false	1.256	Upstream	NonCoding	misc_RNA	-1	1	-1	6864	1
+3	0	true	ADH5P3	ENST00000433842	true	true	false	false	1.256	Upstream	NonCoding	processed_pseudogene	-1	0	-1	38457	1
+4	0	false	FMN2	ENST00000319653	true	false	false	false	1.254	Intronic	Coding	protein_coding	-1	3	0	16201	18
+5	0	false	RP11-567G24.1	ENST00000451892	true	true	false	false	1.254	Upstream	NonCoding	processed_pseudogene	-1	0	-1	-6948	1
+6	0	false	Y_RNA	ENST00000365171	true	true	false	false	1.254	Upstream	NonCoding	misc_RNA	-1	0	-1	16377	1
+7	0	false	ADH5P3	ENST00000433842	true	false	false	false	1.254	Upstream	NonCoding	processed_pseudogene	-1	1	-1	8435	1
+8	4	true	RPS11P1	ENST00000451072	true	false	false	false	1.29	Upstream	NonCoding	processed_pseudogene	-1	1	-1	64579	1
+9	4	false	RPS11P1	ENST00000451072	true	true	false	false	1.2929999999999997	Upstream	NonCoding	processed_pseudogene	-1	0	-1	-1	1

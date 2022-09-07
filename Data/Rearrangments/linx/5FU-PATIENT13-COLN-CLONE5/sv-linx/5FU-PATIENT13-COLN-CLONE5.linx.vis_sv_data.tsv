@@ -1,0 +1,3 @@
+SampleId	ClusterId	ChainId	SvId	Type	ResolvedType	IsSynthetic	ChrStart	ChrEnd	PosStart	PosEnd	OrientStart	OrientEnd	InfoStart	InfoEnd	Ploidy
+5FU-PATIENT13-COLN-CLONE5	0	1	0	DEL	DEL	false	1	1	240324936	240325020	1	-1	NORMAL	NORMAL	0.7632
+5FU-PATIENT13-COLN-CLONE5	1	1	4	DEL	DEL	false	20	20	11391082	11391114	1	-1	NORMAL	NORMAL	0.7137

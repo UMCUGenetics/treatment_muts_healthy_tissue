@@ -1,0 +1,6 @@
+svId	clusterId	clusterReason	fragileSiteStart	fragileSiteEnd	isFoldback	lineTypeStart	lineTypeEnd	ploidyMin	ploidyMax	geneStart	geneEnd	replicationTimingStart	replicationTimingEnd	localTopologyIdStart	localTopologyIdEnd	localTopologyStart	localTopologyEnd	localTICountStart	localTICountEnd
+0	1		false	false	false	None	None	-0.2399	1.4201	CSMD2	CSMD2	0.2614	0.2614	0	0	DSB	DSB	0	0
+6	2		false	false	false	None	None	0.4882	1.2657	MECOM;RP11-641D5.2	MECOM;RP11-641D5.2	0.5440	0.5444	0	0	DSB	DSB	0	0
+11	3		false	false	false	None	None	-0.5790	0.7567	KMT2C	KMT2C	0.5695	0.5695	0	0	DSB	DSB	0	0
+17	0	Prox_18	false	false	false	Known	Known	-0.5681	0.9048	TTC28	TTC28	0.7240	0.7246	0	0	COMPLEX_LINE	COMPLEX_LINE	0	0
+18	0	Prox_17	false	false	false	None	Known	-0.1738	0.2338	CSMD3	CSMD3	0.3300	0.7246	1	0	ISOLATED_BE	COMPLEX_LINE	0	0

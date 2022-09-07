@@ -1,0 +1,2 @@
+FivePrimeBreakendId	ThreePrimeBreakendId	Name	Reported	ReportedType	Phased	ChainLength	ChainLinks	ChainTerminated	DomainsKept	DomainsLost	SkippedExonsUp	SkippedExonsDown	FusedExonUp	FusedExonDown
+49	50	RP11-420N3.2_RBFOX1	false		true	0	0	false	RNA recognition motif domain		0	0	5	4

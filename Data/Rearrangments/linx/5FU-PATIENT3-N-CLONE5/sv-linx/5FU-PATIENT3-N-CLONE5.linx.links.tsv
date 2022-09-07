@@ -1,0 +1,4 @@
+clusterId	chainId	chainIndex	chainCount	lowerBreakendId	upperBreakendId	lowerBreakendIsStart	upperBreakendIsStart	chromosome	arm	assembled	traversedSVCount	length	ploidy	ploidyUncertainty	pseudogeneInfo
+2	0	0	2	4	3	true	false	2	P	false	0	432858	0.0538	0.0953	
+13	0	0	2	15	14	true	false	8	Q	false	0	2506768	0.9193	0.2939	
+14	0	0	2	17	16	true	false	9	Q	false	0	45	0.7762	0.1918	

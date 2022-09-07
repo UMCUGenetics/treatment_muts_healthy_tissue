@@ -1,0 +1,7 @@
+Id	SvId	IsStart	Gene	TranscriptId	Canonical	IsUpstream	Disruptive	ReportedDisruption	UndisruptedCopyNumber	RegionType	CodingContext	Biotype	ExonBasePhase	NextSpliceRank	NextSplicePhase	NextSpliceDistance	TotalExonCount
+0	3	true	CHL1	ENST00000256509	true	true	false	false	1.057	Intronic	Coding	protein_coding	-1	24	1	812	28
+1	3	true	RPS8P6	ENST00000426177	true	false	false	false	1.057	Upstream	NonCoding	processed_pseudogene	-1	1	-1	86362	1
+2	3	true	CHL1-AS1	ENST00000417612	true	false	false	false	1.057	Upstream	NonCoding	antisense	-1	2	-1	9889	3
+3	3	false	CHL1	ENST00000256509	true	false	false	false	1.0589999999999997	Intronic	Coding	protein_coding	-1	25	1	2475	28
+4	3	false	RPS8P6	ENST00000426177	true	true	false	false	1.0589999999999997	Upstream	NonCoding	processed_pseudogene	-1	0	-1	-31729	1
+5	3	false	CHL1-AS1	ENST00000417612	true	true	false	false	1.0589999999999997	Upstream	NonCoding	antisense	-1	0	-1	-1	3

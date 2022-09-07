@@ -1,0 +1,13 @@
+svId	clusterId	clusterReason	fragileSiteStart	fragileSiteEnd	isFoldback	lineTypeStart	lineTypeEnd	ploidyMin	ploidyMax	geneStart	geneEnd	replicationTimingStart	replicationTimingEnd	localTopologyIdStart	localTopologyIdEnd	localTopologyStart	localTopologyEnd	localTICountStart	localTICountEnd
+2	0		false	false	false	None	None	0.9449	1.3467			0.5710	0.5497	0	1	ISOLATED_BE	ISOLATED_BE	0	0
+6	5		false	false	false	None	None	0.3629	2.9033	EPHA6	EPHA6	0.5039	0.5039	0	0	SIMPLE_DUP	SIMPLE_DUP	0	0
+8	6		false	false	false	None	None	0.5540	1.3936	EHHADH	EHHADH	0.6115	0.6131	0	0	DSB	DSB	0	0
+9	7		false	false	true	None	None	-0.1282	0.2210	RP11-729M20.1	RP11-729M20.1	0.1259	0.6025	0	0	FOLDBACK	FOLDBACK	0	0
+11	8		false	false	false	None	None	0.0498	1.8081			0.3309	0.3309	0	0	DSB	DSB	0	0
+13	9		false	false	false	None	None	0.2414	2.0585			0.3595	0.3595	0	0	DSB	DSB	0	0
+14	10		false	false	false	None	None	-0.0303	1.8062	SH3GL2;PABPC1P11	SH3GL2;PABPC1P11	0.6721	0.6721	0	0	DSB	DSB	0	0
+15	1		false	false	false	None	None	0.4726	2.3568	GYS2	GYS2	0.4294	0.4293	0	0	DSB	DSB	0	0
+16	2	Prox_17	false	false	false	None	None	-0.2297	1.4747	TMTC1;RP11-310I24.1	TMTC1;RP11-310I24.1	0.6467	0.6462	0	0	DSB	DSB	1	1
+17	2	Prox_16	false	false	false	None	None	-0.2178	1.4964	TMTC1;RP11-310I24.1	TMTC1;RP11-310I24.1	0.6462	0.6462	0	0	DSB	DSB	1	1
+20	3		false	false	false	None	None	0.1735	2.0191			0.5503	0.5503	0	0	DSB	DSB	0	0
+21	4		false	false	false	None	None	0.5483	2.3731	ALDH1L2	ALDH1L2	0.7039	0.7033	0	0	DSB	DSB	0	0

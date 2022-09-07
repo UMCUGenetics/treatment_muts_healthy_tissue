@@ -1,0 +1,3 @@
+FivePrimeBreakendId	ThreePrimeBreakendId	Name	Reported	ReportedType	Phased	ChainLength	ChainLinks	ChainTerminated	DomainsKept	DomainsLost	SkippedExonsUp	SkippedExonsDown	FusedExonUp	FusedExonDown
+7	4	EHHADH_EHHADH	false		false	0	0	false			0	0	3	5
+42	33	TMTC1_TMTC1	false		false	71	1	false		Tetratricopeptide repeat;Tetratricopeptide repeat-containing domain	0	0	12	14

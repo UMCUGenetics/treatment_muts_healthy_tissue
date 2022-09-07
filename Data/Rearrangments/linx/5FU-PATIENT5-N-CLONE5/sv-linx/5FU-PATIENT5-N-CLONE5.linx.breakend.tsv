@@ -1,0 +1,4 @@
+Id	SvId	IsStart	Gene	TranscriptId	Canonical	IsUpstream	Disruptive	ReportedDisruption	UndisruptedCopyNumber	RegionType	CodingContext	Biotype	ExonBasePhase	NextSpliceRank	NextSplicePhase	NextSpliceDistance	TotalExonCount
+0	1	true	CCSER1	ENST00000509176	true	true	true	false	1.8599999999999999	Intronic	Coding	protein_coding	-1	6	0	60309	11
+1	1	false	CCSER1	ENST00000509176	true	false	true	false	1.861	Intronic	Coding	protein_coding	-1	8	0	51762	11
+2	10	true	CPQ	ENST00000220763	true	true	true	false	1.998277	Intronic	5P_UTR	protein_coding	-1	1	-1	40443	8
