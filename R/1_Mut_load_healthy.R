@@ -24,12 +24,14 @@ load_all('/Users/avanhoeck//hpc/cuppen/projects/P0004_DNAmethylation/DOX_DNMT1_k
 load_all('/Users/avanhoeck//hpc/cuppen/projects/P0004_DNAmethylation/DOX_DNMT1_kd/analysis/software/MutationalPatterns/')
 
 color_palette_healthy <- c("#F2AA65","#719FC7","#D36F6C","#80BB74")
+
 colors3 <- list(
-  None='#80BB74',
-  `5-FU+platinum` = 'chocolate3',
-  `5-FU+radiation` = 'chocolate4',
-  `5-FU+platinum+radiation` = 'chocolate1'
+  None='#6cb48c',
+  `5-FU+platinum` = '#F49C5C',
+  `5-FU+radiation` = '#C54556',
+  `5-FU+platinum+radiation` = '#8B5211'
 )
+
 shapings <- list(
   SBS = '21',
   DBS = '22',
@@ -101,6 +103,7 @@ VCF_GRList = GenomicRanges::GRangesList()
 for(i in 1:length(sampleslist)){
   # Read vcf files with VariantAnnotation
   vcf_object = readVcf(sampleslist[i], "hg19")
+  print(sampleslist[i])
   seqlevels(vcf_object) <- paste("chr", seqlevels(vcf_object), sep="")
   vcf_object = vcf_object[ rowRanges(vcf_object)$FILTER == "PASS",]
   vcf_object = vcf_object[ elementNROWS(rowRanges(vcf_object)$ALT) == 1,]
@@ -127,7 +130,7 @@ dbs_grl <- get_dbs_context(dbs_grl)
 dbs_counts <- count_dbs_contexts(dbs_grl)
 
 #Load mutation matrices for structural variants
-SV_contribution <- as.data.frame(readRDS("/Users/avanhoeck//hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/SV_matrices_fromlinx.rds"))
+SV_contribution <- as.data.frame(readRDS("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Rearrangments/SV_matrices_fromlinx.rds"))
 
 SV_load <- as.data.frame(rowSums(as.data.frame(SV_contribution)))
 colnames(SV_load) <- c("SVmuts")
@@ -196,7 +199,7 @@ lme_non_pretreated_SBS_colon = lme(SBSmuts ~  age, random = ~ - 1 + age | donor_
 newdat_SBS_colon = expand.grid(age = overview_data$age) #seq(5, 80, by=0.1)
 newdat_SBS_colon$predicted <- predict(lme_non_pretreated_SBS_colon, level=0, newdata=newdat_SBS_colon)
 overview_data_SBS <- left_join(overview_data[c("donor_id","age","pretreated","treatment","treatment_2","SBSmuts")],newdat_SBS_colon,by="age") %>% unique()
-saveRDS(overview_data_SBS,"/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Mut_sign_contribution/prediction_mut_load.rds")
+saveRDS(overview_data_SBS,"/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Mut_load/prediction_mut_load.rds")
 summary_table_SBS <- overview_data_SBS %>% dplyr::select(donor_id,age,pretreated,treatment,treatment_2,SBSmuts,predicted) %>% 
   group_by(donor_id) %>% 
   summarize(age=max(age),
@@ -557,7 +560,7 @@ summary_table_SBS <- overview_data_SBS %>% dplyr::select(donor_id,age,pretreated
 summary_table_SBS[is.na(summary_table_SBS)] <- 0
 
 #bootstrap lme analysis
-btstrap_SBS <- bootstrap_lme(df=overview_data_SBS[which(overview_data_SBS$pretreated=="No"),], colname_mutations="SBSmuts",iterations=100)
+btstrap_SBS <- bootstrap_lme(df=overview_data_SBS[which(overview_data_SBS$pretreated=="No"),], colname_mutations="SBSmuts",iterations=1000)
 btstrap_SBS_stats <- bootstrap_lme_stats(btstrap_SBS)
 btstrap_SBS_stats[which(btstrap_SBS_stats$bootstrap_lowerlimit<0),]$bootstrap_lowerlimit <- 0
 
@@ -629,7 +632,7 @@ summary_table_DBS <- overview_data_DBS %>% dplyr::select(donor_id,age,pretreated
 summary_table_DBS[is.na(summary_table_DBS)] <- 0
 
 #bootstrap lme analysis
-btstrap_DBS <- bootstrap_lme(df=overview_data_DBS[which(overview_data_DBS$pretreated=="No"),], colname_mutations="DBSmuts",iterations=10000)
+btstrap_DBS <- bootstrap_lme(df=overview_data_DBS[which(overview_data_DBS$pretreated=="No"),], colname_mutations="DBSmuts",iterations=100)
 btstrap_DBS_stats <- bootstrap_lme_stats(btstrap_DBS)
 btstrap_DBS_stats[which(btstrap_DBS_stats$bootstrap_lowerlimit<0),]$bootstrap_lowerlimit <- 0
 
@@ -702,7 +705,7 @@ summary_table_indel <- overview_data_indel %>% dplyr::select(donor_id,age,pretre
 summary_table_indel[is.na(summary_table_indel)] <- 0
 
 #bootstrap lme analysis
-btstrap_indel <- bootstrap_lme(df=overview_data_indel[which(overview_data_indel$pretreated=="No"),], colname_mutations="indelmuts",iterations=100)
+btstrap_indel <- bootstrap_lme(df=overview_data_indel[which(overview_data_indel$pretreated=="No"),], colname_mutations="indelmuts",iterations=1000)
 btstrap_indel_stats <- bootstrap_lme_stats(btstrap_indel)
 btstrap_indel_stats[which(btstrap_indel_stats$bootstrap_lowerlimit<0),]$bootstrap_lowerlimit <- 0
 

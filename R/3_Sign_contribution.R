@@ -15,10 +15,19 @@ library(stringr)
 library(writexl)
 library(lme4)
 library(lmerTest)
+library(ggpubr)
 
 load_all('/Users/avanhoeck//hpc/cuppen/projects/P0004_DNAmethylation/DOX_DNMT1_kd/analysis/software/ggalluvial/')
 load_all('/Users/avanhoeck//hpc/cuppen/projects/P0004_DNAmethylation/DOX_DNMT1_kd/analysis/software/MutationalPatterns/')
 
+
+
+colors2 <- list(
+  None='#6cb48c',
+  `5-FU+platinum` = '#F49C5C',
+  `5-FU+radiation` = '#C54556',
+  `5-FU+platinum+radiation` = '#8B5211'
+)
 
 
 colors2 <- list(
@@ -154,13 +163,14 @@ plot_dbs_contexts(signatures_DBS)
 #load mutation data#
 ####################
 
+
 SBS_matrix_colon <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/SBS_colon.rds")
 DBS_matrix_colon <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/DBS_colon.rds")
 indel_matrix_colon <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/indels_colon.rds")
 
-#SBS_matrix_colon <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/SBS_colon_ALL_VAF.rds")
-#DBS_matrix_colon <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/DBS_colon_ALL_VAF.rds")
-#indel_matrix_colon <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/indels_colon_ALL_VAF.rds")
+SBS_matrix_colon <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/SBS_colon_ALL_MUTS.rds")
+DBS_matrix_colon <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/DBS_colon_ALL_MUTS.rds")
+indel_matrix_colon <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/indels_colon_ALL_MUTS.rds")
 
 
 SBS_matrix_liver <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/SBS_liver.rds")
@@ -168,27 +178,25 @@ DBS_matrix_liver <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5
 indel_matrix_liver <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/indels_liver.rds")
 
 
-overview_data <- as.data.frame(read_xlsx("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Clinical_info/meta_data.xlsx",sheet = "Sheet1"))
-colon_healthy_samples <- overview_data %>% dplyr::filter(Condition=="Healthy" & tissue =="Colon" & WGS_approach =="Organoid")%>% dplyr::pull(sample_name_R) %>% sort() %>% unique()
+overview_data <- as.data.frame(read_xlsx("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Metadata/meta_data.xlsx",sheet = "Sheet1"))
+colon_healthy_samples <- overview_data %>% dplyr::filter(Condition=="Healthy" & tissue =="Liver" & WGS_approach =="Organoid")%>% dplyr::pull(sample_name_R) %>% sort() %>% unique()
 mut_mat_colon <- SBS_matrix_colon[,colon_healthy_samples]
-#mut_mat_colon <- SBS_matrix_liver[,colon_healthy_samples]
-strict_refit <- fit_to_signatures_strict(mut_mat_colon, as.matrix(novel_signatures), max_delta = 0.005)
+strict_refit <- fit_to_signatures_strict(mut_mat_colon, as.matrix(novel_signatures), max_delta = 0.004)
 contribution_SBS <- as.data.frame(t(strict_refit$fit_res$contribution)) %>% tibble::rownames_to_column("sample_name_R")
 plot_contribution(strict_refit$fit_res$contribution,as.matrix(novel_signatures),coord_flip = TRUE,mode = "absolute")
 
-
-strict_refit <- fit_to_signatures_strict(indel_matrix_colon[,colon_healthy_samples], signatures_indel, max_delta = 0.005)
+strict_refit <- fit_to_signatures_strict(indel_matrix_colon[,colon_healthy_samples], signatures_indel, max_delta = 0.004)
 #strict_refit <- fit_to_signatures_strict(indel_matrix_liver[,colon_healthy_samples], signatures_indel, max_delta = 0.005)
 plot_contribution(strict_refit$fit_res$contribution,novel_signatures,coord_flip = TRUE,mode = "absolute")
 contribution_indel <- as.data.frame(t(strict_refit$fit_res$contribution)) %>% tibble::rownames_to_column("sample_name_R")
 
-strict_refit <- fit_to_signatures_strict(DBS_matrix_colon[,colon_healthy_samples], signatures_DBS, max_delta = 0.005)
-#strict_refit <- fit_to_signatures_strict(DBS_matrix_liver[,colon_healthy_samples], signatures_DBS, max_delta = 0.005)
+strict_refit <- fit_to_signatures_strict(DBS_matrix_colon[,colon_healthy_samples], signatures_DBS, max_delta = 0.004)
+#strict_refit <- fit_to_signatures_strict(DBS_matrix_liver[,colon_healthy_samples], signatures_DBS, max_delta = 0.001)
 plot_contribution(strict_refit$fit_res$contribution,signatures_DBS,coord_flip = TRUE,mode = "absolute")
 contribution_DBS <- as.data.frame(t(strict_refit$fit_res$contribution)) %>% tibble::rownames_to_column("sample_name_R")
 #plot_dbs_contexts(dbs_counts[,colon_healthy_samples])
 
-SV_contribution <- readRDS("/Users/avanhoeck//hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/SV_matrices_fromlinx.rds")
+SV_contribution <- readRDS("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Rearrangments/SV_matrices_fromlinx.rds")
 #SV_contribution <- readRDS("/Users/avanhoeck//hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/SV_matrices.rds")
 rijnamen <- row.names(SV_contribution)
 SV_contribution <- SV_contribution %>% as.data.frame() %>% tibble::rownames_to_column("sample_name_R")
@@ -199,6 +207,7 @@ contribution <- left_join(contribution,contribution_indel,by="sample_name_R")
 contribution <- left_join(contribution,SV_contribution,by="sample_name_R")
 contribution <- unique(contribution)
 nrow(contribution) #colon:34 liver:27
+
 
 
 overview_data <- as.data.frame(read_xlsx("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Clinical_info/meta_data.xlsx",sheet = "Sheet1"))
@@ -228,7 +237,7 @@ overview_data <- overview_data %>% mutate(SV_del = ifelse(SV_del<2,0,SV_del))
 write.table(overview_data, file="/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Mut_sign_contribution/Sign_contribution_colon.txt",sep = "\t", col.names = TRUE,qmethod = "double", quote = FALSE,row.names = FALSE)
 write_xlsx(overview_data,path = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Mut_sign_contribution/Sign_contribution_colon.xlsx")
 saveRDS(overview_data,"/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Mut_sign_contribution/Sign_contribution_colon_with_treatment.rds")
-
+#saveRDS(overview_data,"/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Mut_sign_contribution/Sign_contribution_colon_with_treatment_ALL_VAF.rds")
 
 
 
@@ -315,7 +324,8 @@ merged_df_means_se_plot1$mut_type <- factor(merged_df_means_se_plot1$mut_type, l
 merged_df_means_se_plot1$annotion <- factor(merged_df_means_se_plot1$annotion, levels=c("Ageing","Fluorouracil","Platinum","Collibactin","Radiation","none"))
 merged_df_means_se_plot1$MutContr_mean <- merged_df_means_se_plot1$MutContr_mean+1
 
-merged_df_means_se_plot1 %>% unique %>%  dplyr::filter(annotion=="Radiation")
+merged_df %>% dplyr::filter(Signature=="ID8",pretreated=="Yes") %>% unique() 
+merged_df_means_se %>% dplyr::filter(Signature=="ID8",pretreated=="Yes")%>% unique() 
 tt_colon <- ggplot(data=merged_df_means_se_plot1[which(merged_df_means_se_plot1$tissue=="Colon" & 
                                                    merged_df_means_se_plot1$annotion!="none" & 
                                                      merged_df_means_se_plot1$annotion!="Ageing"&
@@ -324,6 +334,7 @@ tt_colon <- ggplot(data=merged_df_means_se_plot1[which(merged_df_means_se_plot1$
   #geom_line(data=newdat, aes(y=fit, x=age), size=1.5) +
   #geom_point(shape=1, size=2, colour="black") +
   #geom_point( size=2, colour="black") +
+  geom_point(aes(color=treatment,shape=mut_type,fill=treatment), size=3, stroke = 1) +
   geom_errorbar(aes(ymin=lower_limit_sd, ymax=upper_limit_sd,color=treatment),size=0.6, width = 0)+
   geom_point(aes(color=treatment,shape=mut_type,fill=treatment), size=3, stroke = 1) +
   scale_fill_manual(values=colors2)+
@@ -413,10 +424,56 @@ plot(tt_colon)
 dev.off()
 
 
+
+
+tt_colon <- ggplot(data=merged_df_means_se_plot1[which(merged_df_means_se_plot1$tissue=="Colon" & 
+                                                         merged_df_means_se_plot1$annotion=="Ageing"& 
+                                                       merged_df_means_se_plot1$mut_type=="SBS" &
+                                                         merged_df_means_se_plot1$Signature!="SBS_age"),], aes(x=age, y=MutContr_mean),na.rm = TRUE) + #overview_data[which(overview_data$pretreated=="No"),]
+  #geom_line(data=newdat, aes(y=fit, x=age), size=1.5) +
+  #geom_point(shape=1, size=2, colour="black") +
+  #geom_point( size=2, colour="black") +
+  geom_errorbar(aes(ymin=lower_limit_sd, ymax=upper_limit_sd,color=treatment),size=0.6, width = 0)+
+  geom_point(aes(color=treatment,shape=mut_type,fill=treatment), size=3, stroke = 1) +
+  scale_fill_manual(values=colors2)+
+  scale_color_manual(values=colors2)+
+  scale_shape_manual(values=shapings)+
+  ylab("No. SBS mutations (genome-1)") +
+  #scale_colour_manual(values=type_colors) +
+  facet_wrap( ~ Signature,nrow = 1) +
+  #geom_text(data = age_pval, aes(x = 20, y = 2500, label=paste("P =", format(pval, scientific = T, digits = 3))), size=3.5, colour="black") +
+  theme_bw() +
+  #theme(legend.position="none") +
+  xlab("Age (years)")+
+  scale_x_continuous(
+    breaks = c(0,10,20,30,40,50,60,70,80),
+    expand=c(0,0),
+    limits = c(0, 80))+
+  theme(
+    axis.text.x=element_text(size = 10),
+    axis.text.y.right = element_blank(),
+    axis.ticks.y.right=element_blank(),
+    axis.line.y.right = element_blank(),
+    panel.background=element_blank(),
+    panel.border = element_blank(),
+    axis.title.y.right=element_blank(),
+    axis.line = element_line(colour = "grey"),
+    axis.ticks=element_line(colour = "grey"),
+    panel.grid.major.x = element_blank(),
+    panel.grid.major.y = element_line(colour = "gray87"),
+    panel.grid.minor = element_blank(),
+    legend.position = "none"
+  )
+
+pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Mut_contribution_COSMIC/colon/mut_contribution_colon_age_by_signature.pdf",7,4)
+plot(tt_colon)
+dev.off()
+
+
 #bootstrap lme analysis on age mutations treated vs untreated
 
 fml = as.formula(sprintf('%s ~ %s', colname_mutations, "age"))
-btstrap_mutload <- bootstrap_lme(df=merged_df[which(merged_df$Signature=="SBS_age" & merged_df$pretreated=="No"),], colname_mutations="MutContr",iterations=100)
+btstrap_mutload <- bootstrap_lme(df=merged_df[which(merged_df$Signature=="SBS_age" & merged_df$pretreated=="No"),], colname_mutations="MutContr",iterations=1000)
 btstrap_mutload_stats <- bootstrap_lme_stats(btstrap_mutload)
 Pemp <- get_Pemp(df_mean=merged_df_means_se,meancolumn="MutContr_mean",btstrapfile=btstrap_mutload,Pemp.colname="P.emp_SBSage",Signature_type="SBS_age")
 merged_df_means_se <- cbind(merged_df_means_se,Pemp[,"P.emp_SBSage"])
@@ -454,9 +511,9 @@ ggplot() +
   )
 
 
-btstrap_mutload_untreated <- bootstrap_lme(df=untreated[which(untreated$Signature=="SBS_age" & untreated$pretreated=="No"),], colname_mutations="MutContr",iterations=100)
+btstrap_mutload_untreated <- bootstrap_lme(df=untreated[which(untreated$Signature=="SBS_age" & untreated$pretreated=="No"),], colname_mutations="MutContr",iterations=1000)
 btstrap_mutload_stats_untreated <- bootstrap_lme_stats(btstrap_mutload_untreated)
-btstrap_mutload_treated <- bootstrap_lme(df=pretreated_all[which(pretreated_all$Signature=="SBS_age"),], colname_mutations="MutContr",iterations=100)
+btstrap_mutload_treated <- bootstrap_lme(df=pretreated_all[which(pretreated_all$Signature=="SBS_age"),], colname_mutations="MutContr",iterations=1000)
 btstrap_mutload_stats_treated <- bootstrap_lme_stats(btstrap_mutload_treated)
 treatedvsuntreated_age <- ggplot() +
   geom_point(data=btstrap_mutload_stats_treated,aes(x=age, y=bootstrap_mean),colour="chocolate1",size=1) +
@@ -559,7 +616,7 @@ dev.off()
 
 
 #bootstrap lme analysis
-btstrap_mutload <- bootstrap_lme(df=merged_df[which(merged_df$Signature=="DBS_age"& merged_df$pretreated=="No"),], colname_mutations="MutContr",iterations=100)
+btstrap_mutload <- bootstrap_lme(df=merged_df[which(merged_df$Signature=="DBS_age"& merged_df$pretreated=="No"),], colname_mutations="MutContr",iterations=1000)
 btstrap_mutload_stats <- bootstrap_lme_stats(btstrap_mutload)
 Pemp <- get_Pemp(df_mean=merged_df_means_se,meancolumn="MutContr_mean",btstrapfile=btstrap_mutload,Pemp.colname="P.emp_DBSage",Signature_type="DBS_age")
 merged_df_means_se <- cbind(merged_df_means_se,Pemp[,"P.emp_DBSage"])
@@ -854,8 +911,8 @@ cor.test(Pearson$SBS35, Pearson$DBS5)
 fit <- lm(SBS35 ~ DBS5, data = data.frame(compare_subset))
 summary(fit)
 fitplot <- ggplot(compare_subset[which(compare_subset$pretreated=="Yes"),], aes(x = SBS35, y =DBS5)) +
-  geom_point( size=3, stroke = 1,shape=21,color="chocolate3",fill="chocolate3") + 
-  stat_smooth(method = "lm", col = "chocolate3",fill="chocolate1") +
+  geom_point( size=3, stroke = 1,shape=21,color='#F49C5C',fill='#F49C5C') + 
+  stat_smooth(method = "lm", col = '#F49C5C',fill="chocolate1") +
   xlab("Platinum SBS mutations")+
   ylab("Platinum DBS mutations")+
   #scale_fill_manual(values=colors2)+
@@ -877,7 +934,7 @@ fitplot <- ggplot(compare_subset[which(compare_subset$pretreated=="Yes"),], aes(
     panel.grid.minor = element_blank()
   )
 
-pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Mut_contribution_COSMIC/colon/lin_fit_platinum_mutations.pdf",5,3)
+pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Mut_contribution_COSMIC/colon/lin_fit_platinum_mutations.pdf",3,3)
 plot(fitplot)
 dev.off()
 
@@ -890,8 +947,8 @@ Pearson <- data.frame(compare_subset[which(compare_subset$pretreated=="Yes"),])
 cor.test(Pearson$ID8, Pearson$SV_del)
 fit <- lm(ID8 ~ SV_del, data = data.frame(compare_subset[which(compare_subset$pretreated=="Yes"),]))
 fitplot <- ggplot(compare_subset[which(compare_subset$pretreated=="Yes"),], aes(x = ID8, y =SV_del)) +
-  geom_point(size=3, stroke = 1,shape=23,color="chocolate4",fill="chocolate4") + 
-  stat_smooth(method = "lm", col = "chocolate4",fill="chocolate4") +
+  geom_point(size=3, stroke = 1,shape=23,color="#8B5211",fill="#8B5211") + 
+  stat_smooth(method = "lm", col = "#8B5211",fill="#8B5211") +
   scale_fill_manual(values=colors2)+
   scale_color_manual(values=colors2)+
   xlab("ID8 Indel mutations")+
@@ -921,6 +978,37 @@ dev.off()
 
 #c) Sign_contribution_per_CAPOX_treatments
 
+bootstrap_lme_CAPOXtreatment <- function(df=NULL, colname_mutations=NULL,iterations=NULL){
+  bootstrap_main = expand.grid(pretreated="bootstrap", CAPOX_treatments = seq(0, 7, by=0.1))
+  for(iter in 1:iterations){
+    print(iter)
+    df_subset <- NULL
+    df_subset <- df[sample(nrow(df), nrow(df)*0.2), ]
+    print(nrow(df_subset))
+    df_subset$CAPOX_treatments <- as.numeric(df_subset$CAPOX_treatments)
+    #lme_model = lme(mut_load ~  age, random = ~ - 1 + age | donor_id, data=df_subset)
+    #lme_non_pretreated_colon = lme(mut_load ~  age, random = ~ - 1 + age | donor_id, data=overview_data[which(overview_data$pretreated=="No"),])
+    
+    fml = as.formula(sprintf('%s ~ %s', colname_mutations, "CAPOX_treatments"))
+    lme_model = lme(fml, random = ~ - 1 + CAPOX_treatments | donor_id, data=df_subset)
+    
+    
+    bootstrap = expand.grid(pretreated="bootstrap", CAPOX_treatments = seq(0, 7, by=0.1))
+    bootstrap$fit = predict(lme_model, level=0, newdata=bootstrap)
+    colnames(bootstrap)[3] <- paste0("fit_",iter,sep="")
+    bootstrap_main <- cbind(bootstrap_main,bootstrap[3])
+  }
+  return(bootstrap_main)
+}
+bootstrap_lme_stats_CAPOX <- function(dfbtstrap=btstrap_mutload){
+  bootstrap_final = expand.grid(pretreated="bootstrap", CAPOX_treatments = seq(0, 7, by=0.1))
+  bootstrap_final <- bootstrap_final %>% dplyr::mutate(bootstrap_mean = rowMeans(dplyr::select(dfbtstrap, starts_with("fit")), na.rm = TRUE))
+  bootstrap_final <- bootstrap_final %>% dplyr::mutate(bootstrap_sd = rowSds(as.matrix(dplyr::select(dfbtstrap, starts_with("fit")), na.rm = TRUE)))
+  bootstrap_final$bootstrap_upperlimit <- bootstrap_final$bootstrap_mean + bootstrap_final$bootstrap_sd
+  bootstrap_final$bootstrap_lowerlimit <- bootstrap_final$bootstrap_mean - bootstrap_final$bootstrap_sd
+  return(bootstrap_final)
+}
+
 data_treat <- overview_data[overview_data$Oxaliplatin=="Yes",]
 data_treat$CAPOX_treatments <- as.numeric(data_treat$CAPOX_treatments)
 lme_treat = lme(DBS5 ~ CAPOX_treatments, random=~1|donor_id,data=data_treat)
@@ -931,14 +1019,14 @@ newdat0 = expand.grid(signature="CAPOX_treatments", CAPOX_treatments = c(1,2,3,4
 newdat0$fit = predict(lme_treat, level=0, newdata=newdat0)
 
 
+btstrap_mutload <- bootstrap_lme_CAPOXtreatment(df=data_treat, colname_mutations="DBS5",iterations=100)
+btstrap_mutload_stats <- bootstrap_lme_stats_CAPOX(btstrap_mutload)
+
 fitplot <- ggplot() +
-  geom_point(data=data_treat,aes(x=CAPOX_treatments, y=DBS5,color=donor_id),size=4) +
-  #geom_point(data=btstrap_mutload_stats,aes(x=age, y=bootstrap_upperlimit),colour="Tomato",size=0.5) +
-  #geom_point(data=btstrap_mutload_stats,aes(x=age, y=bootstrap_lowerlimit),colour="Tomato",size=0.5) +
-  #geom_point(data=merged_df[which(merged_df$Signature=="SBS_age"),],aes(x=age, y=predicted),colour="Red",size=3) +
-  #geom_point(data=merged_df[which(merged_df$Signature=="SBS_age"),],aes(x=age, y=MutContr, colour=pretreated),size=5) +
-  #geom_errorbar(data=merged_df_means_se[which(merged_df_means_se$Signature=="DBS_age"),],aes(x=age, y=MutContr_mean,ymin=lower_limit_sd, ymax=upper_limit_sd),size=0.6, width = 0)+
-  geom_line(data=newdat0,aes(x=CAPOX_treatments, y=fit), size=3, stroke = 1) +
+  geom_ribbon(data=btstrap_mutload_stats,aes(x=CAPOX_treatments,ymin=bootstrap_lowerlimit,ymax=bootstrap_upperlimit),alpha=0.2,fill="#F49C5C") +
+  geom_line(data=btstrap_mutload_stats, aes(y=bootstrap_mean, x=CAPOX_treatments),colour="#F49C5C",size=0.7,alpha = 0.6) +
+  geom_point(data=data_treat,aes(x=CAPOX_treatments, y=DBS5),size=4,colour="#F49C5C") +
+  #stat_smooth(method = "lm", col = '#F49C5C',fill="chocolate1") +
   xlab(c("Number of CAPOX treatments"))+
   ylab(c("DBS5 mutation contribution"))+
   theme(
@@ -961,11 +1049,101 @@ fitplot <- ggplot() +
 
 
 
-pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Mut_contribution_COSMIC/colon/CAPOX_treatments_vs_SBS35mutations_2.pdf",3,3)
+pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Mut_contribution_COSMIC/colon/CAPOX_treatments_vs_DBSmutations_2.pdf",3,3)
 plot(fitplot)
 dev.off()
 
+
+
+#c) Sign_contribution_treatment_duration
+
+bootstrap_lme_CAPOXtreatment <- function(df=NULL, colname_mutations=NULL,iterations=NULL){
+  bootstrap_main = expand.grid(pretreated="bootstrap", CAPOX_treatments = seq(0, 7, by=0.1))
+  for(iter in 1:iterations){
+    print(iter)
+    df_subset <- NULL
+    df_subset <- df[sample(nrow(df), nrow(df)*0.2), ]
+    print(nrow(df_subset))
+    df_subset$CAPOX_treatments <- as.numeric(df_subset$CAPOX_treatments)
+    #lme_model = lme(mut_load ~  age, random = ~ - 1 + age | donor_id, data=df_subset)
+    #lme_non_pretreated_colon = lme(mut_load ~  age, random = ~ - 1 + age | donor_id, data=overview_data[which(overview_data$pretreated=="No"),])
+    
+    fml = as.formula(sprintf('%s ~ %s', colname_mutations, "CAPOX_treatments"))
+    lme_model = lme(fml, random = ~ - 1 + CAPOX_treatments | donor_id, data=df_subset)
+    
+    
+    bootstrap = expand.grid(pretreated="bootstrap", CAPOX_treatments = seq(0, 7, by=0.1))
+    bootstrap$fit = predict(lme_model, level=0, newdata=bootstrap)
+    colnames(bootstrap)[3] <- paste0("fit_",iter,sep="")
+    bootstrap_main <- cbind(bootstrap_main,bootstrap[3])
+  }
+  return(bootstrap_main)
+}
+bootstrap_lme_stats_CAPOX <- function(dfbtstrap=btstrap_mutload){
+  bootstrap_final = expand.grid(pretreated="bootstrap", CAPOX_treatments = seq(0, 7, by=0.1))
+  bootstrap_final <- bootstrap_final %>% dplyr::mutate(bootstrap_mean = rowMeans(dplyr::select(dfbtstrap, starts_with("fit")), na.rm = TRUE))
+  bootstrap_final <- bootstrap_final %>% dplyr::mutate(bootstrap_sd = rowSds(as.matrix(dplyr::select(dfbtstrap, starts_with("fit")), na.rm = TRUE)))
+  bootstrap_final$bootstrap_upperlimit <- bootstrap_final$bootstrap_mean + bootstrap_final$bootstrap_sd
+  bootstrap_final$bootstrap_lowerlimit <- bootstrap_final$bootstrap_mean - bootstrap_final$bootstrap_sd
+  return(bootstrap_final)
+}
+
+data_treat <- overview_data[overview_data$Oxaliplatin=="Yes",]
+data_treat <- data_treat %>% tidyr::drop_na(Treatment_duration)
+
+data_treat$Treatment_duration <- as.numeric(data_treat$Treatment_duration)
+lme_treat = lme(DBS5 ~ Treatment_duration, random=~1 | donor_id,data=data_treat,na.action=na.omit)
+anova(lme_treat)
+summary(lme_treat)$tTable
+age_confint_lme_SBS_age = intervals(lme_treat)$fixed
+newdat0 = expand.grid(signature="CAPOX_treatments", CAPOX_treatments = c(1,2,3,4,5,6))
+newdat0$fit = predict(lme_treat, level=0, newdata=newdat0)
+
+
+btstrap_mutload <- bootstrap_lme_CAPOXtreatment(df=data_treat, colname_mutations="DBS5",iterations=100)
+btstrap_mutload_stats <- bootstrap_lme_stats_CAPOX(btstrap_mutload)
+
+fitplot <- ggplot() +
+  geom_ribbon(data=btstrap_mutload_stats,aes(x=CAPOX_treatments,ymin=bootstrap_lowerlimit,ymax=bootstrap_upperlimit),alpha=0.2,fill="#F49C5C") +
+  geom_line(data=btstrap_mutload_stats, aes(y=bootstrap_mean, x=CAPOX_treatments),colour="#F49C5C",size=0.7,alpha = 0.6) +
+  geom_point(data=data_treat,aes(x=CAPOX_treatments, y=DBS5),size=4,colour="#F49C5C") +
+  #stat_smooth(method = "lm", col = '#F49C5C',fill="chocolate1") +
+  xlab(c("Number of CAPOX treatments"))+
+  ylab(c("DBS5 mutation contribution"))+
+  theme(
+    axis.text.y.right = element_blank(),
+    axis.ticks.y.right=element_blank(),
+    axis.line.y.right = element_blank(),
+    panel.background=element_blank(),
+    axis.title.y.right=element_blank(),
+    axis.line = element_line(colour = "grey"),
+    axis.ticks=element_line(colour = "grey"),
+    panel.grid.major.x = element_blank(),
+    #panel.grid.major.y = element_line(colour = "gray87"),
+    panel.grid.minor = element_blank(),
+    legend.position="none"
+  )+
+  scale_x_continuous(
+    breaks = c(1,2,3,4,5,6,7),
+    expand=c(0,0),
+    limits = c(0, 7))
+
+
+
+pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Mut_contribution_COSMIC/colon/CAPOX_treatments_vs_DBSmutations_2.pdf",3,3)
+plot(fitplot)
+dev.off()
+
+
 #d) radiation
+
+colors2 <- list(
+  None='#6cb48c',
+  `5-FU+platinum` = '#F49C5C',
+  `5-FU+radiation` = '#C54556',
+  `5-FU+platinum+radiation` = '#8B5211'
+)
+
 
 radiation <- overview_data
 radiation <- radiation %>% mutate(treatment = ifelse(pretreated == "No" & Radiation=="No" ,"Unt",
@@ -977,7 +1155,7 @@ radiation$treatment
 my_comparisons <- list( c("Unt", "With_Rad"), c("WO_Rad", "With_Rad") )
 box <- ggboxplot(radiation, x = "treatment", y = "ID8",
                  add = "jitter", 
-                 color = "treatment",palette = c('#80BB74', "chocolate3","chocolate4"))+  #fill = "variable", #palette = c("#00AFBB", "#E7B800", "#FC4E07")
+                 color = "treatment",palette = c('#6cb48c','#F49C5C','#8B5211'))+  #fill = "variable", #palette = c("#00AFBB", "#E7B800", "#FC4E07")
   #stat_compare_means(aes(label = ..p.signif..))+
   stat_compare_means(comparisons = my_comparisons,method = "wilcox.test")+
   scale_y_continuous(limits = c(0, 140))+
@@ -985,7 +1163,18 @@ box <- ggboxplot(radiation, x = "treatment", y = "ID8",
   ylab(c("ID8 absolute contribution"))+
   #scale_y_continuous(limits = c(0, 0.5))+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5),
-        legend.position = "none")
+            axis.text.y.right = element_blank(),
+            axis.ticks.y.right=element_blank(),
+            axis.line.y.right = element_blank(),
+            panel.background=element_blank(),
+            axis.title.y.right=element_blank(),
+            axis.line = element_line(colour = "grey"),
+            axis.ticks=element_line(colour = "grey"),
+            panel.grid.major.x = element_blank(),
+            #panel.grid.major.y = element_line(colour = "gray87"),
+            panel.grid.minor = element_blank(),
+            legend.position="none"
+          )
 
 pdf(file="/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Mut_contribution_COSMIC/colon/ID8.pdf",
     width=3, height=3.5, pointsize=6, useDingbats=FALSE)
@@ -1001,7 +1190,7 @@ mut_lad$increased_mut_load <- mut_lad$SBSmuts - mut_lad$predicted
 increased_mut_load_Mean <- mut_lad %>% dplyr::group_by(donor_id)  %>% dplyr::summarize(increased_mut_load_Mean = mean(increased_mut_load, na.rm=TRUE)) %>% as.data.frame()
 
 
-samplelist<- signature_contributions %>% dplyr::select(donor_id,pretreated,Oxaliplatin) %>% unique()
+samplelist<- signature_contributions %>% dplyr::select(donor_id,age,pretreated,Oxaliplatin) %>% unique()
 samplelist <- full_join(samplelist,SBS35_Mean,by="donor_id")
 samplelist <- full_join(samplelist,increased_mut_load_Mean)
 
@@ -1011,8 +1200,10 @@ samplelist <- full_join(samplelist,increased_mut_load_Mean)
 #f) assessment of low VAF mutations in colorectal ASCs
 
 
-library(ggpubr)
+
 #Sign_contribution_colon_ALL_VAF: generate overview_data table with all mutations (i.e.vcf_object = vcf_object[ info(vcf_object)$PURPLE_AF > 0.0,])
+overview_data <- readRDS("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Mut_sign_contribution/Sign_contribution_colon_with_treatment.rds")
+
 Sign_contribution_colon_ALL_VAF <- readRDS("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Mut_sign_contribution/Sign_contribution_colon_with_treatment_ALL_VAF.rds")
 Sign_contribution_colon_0.3_VAF <- overview_data
 
@@ -1097,10 +1288,12 @@ stats <- stats %>% mutate(Subclonal_fraction_ID8=ID8_ALL_VAF-ID8_VAF_0.3) %>%
   mutate(Subclonal_fraction_ID8 = ifelse(Subclonal_fraction_ID8<0,0,Subclonal_fraction_ID8)) %>% 
   mutate(ID8=Subclonal_fraction_ID8/ID8_VAF_0.3)
 
-stats_plot <- stats %>% dplyr::select(Oxaliplatin,donor_id,sample_id,SBS35,DBS5,SBS17,ID8)
+stats_plot <- stats %>% dplyr::select(Oxaliplatin,donor_id,sample_id,SBS35,DBS5,SBS17)
 stats_plot <- tidyr::gather(stats_plot,"Signature","contribution",-Oxaliplatin,-donor_id,-sample_id)
-stats_plot$Signature <- factor(stats_plot$Signature, levels=c("SBS35","DBS5","SBS17","ID8"))
-summary_plot <- ggplot(data=stats_plot[stats_plot$Oxaliplatin=="Yes",], aes(x=Signature, y=contribution, fill=Signature)) +
+stats_plot$Signature <- factor(stats_plot$Signature, levels=c("SBS35","DBS5","SBS17"))
+stats_plot <- stats_plot %>% 
+  mutate(contribution_plot = ifelse(contribution>3,3,contribution)) 
+summary_plot <- ggplot(data=stats_plot[stats_plot$Oxaliplatin=="Yes",], aes(x=Signature, y=contribution_plot, fill=Signature)) +
   geom_bar(stat="identity", position=position_dodge())+
   facet_grid(~sample_id,scales = "free",)+
   scale_y_continuous(labels = scales::percent) +
@@ -1111,19 +1304,19 @@ summary_plot <- ggplot(data=stats_plot[stats_plot$Oxaliplatin=="Yes",], aes(x=Si
         legend.position="bottom")
 
 pdf(file="/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/barplotALLVAHvs03VAF_DBS5.pdf",
-    width=8, height=3, pointsize=6, useDingbats=FALSE)
+    width=10, height=3, pointsize=6, useDingbats=FALSE)
 print(summary_plot)
 dev.off()
 
 
 #g) check liver increase for DBS
 
-DBS_matrix_liver <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/DBS_liver.rds")
+DBS_matrix_liver <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/DBS_colon.rds")
 overview_data <- as.data.frame(read_xlsx("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Clinical_info/meta_data.xlsx",sheet = "Sheet1"))
-liver_healthy_samples <- overview_data %>% dplyr::filter(Condition=="Healthy" & tissue =="Liver" & WGS_approach =="Organoid")%>% dplyr::pull(sample_name_R) %>% sort() %>% unique()
+liver_healthy_samples <- overview_data %>% dplyr::filter(Condition=="Healthy" & tissue =="Colon" & WGS_approach =="Organoid")%>% dplyr::pull(sample_name_R) %>% sort() %>% unique()
 DBS_matrix_liver <- DBS_matrix_liver[,liver_healthy_samples]
 overview_data <- as.data.frame(read_xlsx("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Clinical_info/meta_data.xlsx",sheet = "Sheet1"))
-overview_data <- overview_data %>% dplyr::filter(tissue=="Liver")%>% dplyr::filter(Condition!="Cancer"& WGS_approach =="Organoid") %>% dplyr::filter(!is.na(sample_name_R)) %>% 
+overview_data <- overview_data %>% dplyr::filter(tissue=="Colon")%>% dplyr::filter(Condition!="Cancer"& WGS_approach =="Organoid") %>% dplyr::filter(!is.na(sample_name_R)) %>% 
   dplyr::select(donor_name,donor_id,age,tissue,pretreated,Fluorouracil,Oxaliplatin,Radiation,CAPOX_treatments,Treatment_duration,treatment,treatment_2,sample_name,sample_name_R,sample_id,Condition)
 #overview_data$Batch <- factor(overview_data$Batch, levels = c("In-vitro","Blood", "Tumor","Adenoma","In-vivo"))
 DBS_matrix_liver <- t(DBS_matrix_liver) %>% as.data.frame() %>% tibble::rownames_to_column("sample_name_R")
@@ -1134,7 +1327,7 @@ box <- ggboxplot(overview_data, x = "pretreated", y = "CT_AA",
                  color = "pretreated",
                  add = "jitter")+  #fill = "variable", #palette = c("#00AFBB", "#E7B800", "#FC4E07")
   #stat_compare_means(aes(label = ..p.signif..))+
-  stat_compare_means(method = "wilcox.test",label.y = 4)+
+  stat_compare_means(method = "wilcox.test",label.y = 32)+
   #scale_shape_manual(values=shapings)+
   xlab(c(""))+
   ylab(c("No. CT>AA mutations"))+
@@ -1142,7 +1335,7 @@ box <- ggboxplot(overview_data, x = "pretreated", y = "CT_AA",
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5),
         legend.position="bottom")
 
-pdf(file="/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Mut_contribution_COSMIC/liver/CT_AAboxplot.pdf",
+pdf(file="/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Mut_contribution_COSMIC/liver/CT_AAboxplot_colon.pdf",
     width=4, height=4, pointsize=6, useDingbats=FALSE)
 print(box)
 dev.off()

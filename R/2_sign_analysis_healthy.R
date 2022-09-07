@@ -21,6 +21,15 @@ library(ggrepel)
 load_all('/Users/avanhoeck//hpc/cuppen/projects/P0004_DNAmethylation/DOX_DNMT1_kd/analysis/software/ggalluvial/')
 load_all('/Users/avanhoeck//hpc/cuppen/projects/P0004_DNAmethylation/DOX_DNMT1_kd/analysis/software/MutationalPatterns/')
 
+INDEL_COLORS <- c(
+  "#FDBE6F", "#FF8001", "#B0DD8B", "#36A12E", "#FDCAB5", "#FC8A6A",
+  "#F14432", "#BC141A", "#D0E1F2", "#94C4DF", "#4A98C9", "#1764AB",
+  "#E2E2EF", "#B6B6D8", "#8683BD", "#61409B"
+)
+DBS_COLORS <- c(
+  "#A6CEE3", "#1F78B4", "#B2DF8A", "#33A02C", "#FB9A99",
+  "#E31A1C", "#FDBF6F", "#FF7F00", "#CAB2D6", "#6A3D9A"
+)
 
 tri_context_generator <-function(){
   tri_context <- vector()
@@ -40,6 +49,204 @@ eff.size.wilcox <- function(datatable, column1, column2){
   eff <- log10(neg/pos)
 return(eff)
 }
+
+theme_BM <- function (base_size = 11, base_family = "") 
+{
+  theme_grey(base_size = base_size, base_family = base_family) %+replace% 
+    theme(axis.ticks = element_line(colour = "black"),
+          panel.grid.minor = element_blank(), 
+          panel.grid.major = element_blank(), 
+          panel.backgroun = element_blank(), 
+          axis.line	= element_line(colour = "black", size = 0.5),
+          axis.ticks.x = element_line(colour = "black", size = 0.5),
+          axis.text = element_text(size = rel(0.8), colour = "black"), 
+          strip.background = element_blank()
+    )
+}
+
+plot_96_profile3 = function (mut_matrix, colors, ymax = 0.3, condensed = TRUE) {
+  number_sigs = dim(mut_matrix)[2]
+  
+  if (missing(colors)) {
+    colors = COLORS6
+  }
+  if (length(colors) != 6) {
+    stop("Provide colors vector with length 6")
+  }
+  context = CONTEXTS_96
+  substitution = rep(SUBSTITUTIONS, each = 16)
+  substring(context, 2, 2) = "."
+  df = data.frame(substitution = substitution, context = context)
+  rownames(mut_matrix) = NULL
+  df2 = cbind(df, as.data.frame(mut_matrix))
+  df3 = melt(df2, id.vars = c("substitution", "context"))
+  value = NULL
+  if (condensed) {
+    plot = ggplot(data = df3, aes(x = context, y = value, fill = substitution, width = 1)) + geom_bar(stat = "identity", size = 0.2) + scale_fill_manual(values = colors) + 
+      facet_grid(variable ~ substitution) + 
+      coord_cartesian(ylim = c(0, ymax)) + guides(fill = FALSE) + theme_BM()  + 
+      expand_limits(y = 0) +  scale_y_continuous(expand = c(0, 0), limits = c(0,1200),labels = scales::number_format(accuracy = 0.1), (breaks = seq(0, ymax, 0.1))) +
+      theme(axis.title.y = element_blank(), 
+            axis.line = element_line(colour = "grey"),
+            axis.ticks=element_line(colour = "grey"),
+            axis.text.y = element_text(size = 8), axis.title.x = element_blank(), 
+            axis.text.x = element_text(size = 5, angle = 90, 
+                                       vjust = 0.4), strip.text.x = element_text(size = 9), 
+            strip.text.y = element_text(size = 9), panel.grid.major.x = element_blank(), 
+            panel.spacing.x = unit(0, "lines")) + 
+      ylab("Relative contribution") + xlab("96-trinucleotide context")
+  }
+  else {
+    plot = ggplot(data = df3, aes(x = context, y = value, 
+                                  fill = substitution, width = 0.8)) + geom_bar(stat = "identity", 
+                                                                                size = 0.3) + scale_fill_manual(values = colors) + 
+      facet_grid(variable ~ substitution) +
+      coord_cartesian(ylim = c(0, ymax)) + scale_y_continuous(breaks = seq(0, 
+                                                                           ymax, 0.1)) + guides(fill = FALSE) + theme_BM() + 
+      theme(axis.title.y = element_text(size = 12, vjust = 1), 
+            axis.text.y = element_text(size = 8), axis.title.x = element_text(size = 12), 
+            axis.text.x = element_text(size = 5, angle = 90, 
+                                       vjust = 0.3), strip.text.x = element_text(size = 9), 
+            strip.text.y = element_text(size = 9), panel.grid.major.x = element_blank(), panel.spacing.x = unit(0.000, "lines")) +  
+      ylab("Relative contribution") + xlab("96-trinucleotide context") + scale_y_continuous(expand = c(0, 0))
+    
+    
+  }
+  return(plot)
+}
+plot_DBS_profile3 = function (DBS_mut_matrix, colors=DBS_COLORS,ymax = 0.3, condensed = TRUE) {
+  number_sigs = dim(DBS_mut_matrix)[2]
+  
+  if (missing(colors)) {
+    colors = DBS_COLORS
+    }
+    
+  context = rownames(DBS_mut_matrix)
+  counts <- DBS_mut_matrix %>%
+    as.data.frame() %>%
+    tibble::rownames_to_column("muttype_total") %>%
+    tidyr::separate(muttype_total, c("REF", "ALT"), sep = "_") %>%
+    dplyr::mutate(REF = factor(REF, levels = BiocGenerics::unique(REF)))
+
+  # Set levels of ALT
+  bases <- c("A", "C", "G", "T")
+  bases1 <- bases
+  bases_combi <- tidyr::crossing(bases, bases1)
+  counts$ALT <- factor(counts$ALT, levels = stringr::str_c(bases_combi$bases, bases_combi$bases1))
+  # Transform data to long format.
+  counts <- counts %>% 
+    tidyr::gather(key = "sample", value = "count", -REF, -ALT) %>% 
+    dplyr::mutate(sample = factor(sample, levels = unique(sample)))
+  nr_muts <- counts %>%
+    dplyr::group_by(sample) %>%
+    dplyr::summarise(nr_muts = round(sum(count)))
+  width <- 1
+  spacing <- 0
+  # Create facet labs
+  facet_labs_y <- stringr::str_c(nr_muts$sample, " (n = ", nr_muts$nr_muts, ")")
+  names(facet_labs_y) <- nr_muts$sample
+  facet_labs_x <- stringr::str_c(levels(counts$REF), ">NN")
+  names(facet_labs_x) <- levels(counts$REF)
+  ttDBS<- ggplot(data = counts, aes(x = ALT, y = count, fill = REF, width = 1)) + geom_bar(stat = "identity", size = 0.2) + scale_fill_manual(values = DBS_COLORS) + 
+    facet_grid(sample ~ REF,
+               scales = facet_scale,
+               space = "free_x",
+               labeller = labeller(REF = facet_labs_x, sample = facet_labs_y)
+    ) +
+    coord_cartesian(ylim = c(0, ymax)) + guides(fill = FALSE) + theme_BM()  + 
+    expand_limits(y = 0) +  scale_y_continuous(expand = c(0, 0), limits = c(0,1200),labels = scales::number_format(accuracy = 0.1), (breaks = seq(0, ymax, 0.1))) +
+    theme(axis.title.y = element_blank(), 
+          axis.line = element_line(colour = "grey"),
+          axis.ticks=element_line(colour = "grey"),
+          axis.text.y = element_text(size = 8), axis.title.x = element_blank(), 
+          axis.text.x = element_text(size = 5, angle = 90, 
+                                     vjust = 0.4), strip.text.x = element_text(size = 9), 
+          strip.text.y = element_text(size = 9), panel.grid.major.x = element_blank(), 
+          panel.spacing.x = unit(0, "lines")) + 
+    ylab("Relative contribution") + xlab("96-trinucleotide context")
+  return(ttDBS)
+  
+}
+plot_INDEL_profile3 = function (INDEL_mut_matrix, colors=INDEL_COLORS,ymax = 0.2, extra_labels = FALSE,condensed = TRUE) {
+  number_sigs = dim(INDEL_mut_matrix)[2]
+  
+  if (missing(colors)) {
+    colors = INDEL_COLORS
+  }
+  
+  # Separate muttype and muttype_sub. Then make data long
+  counts <- INDEL_mut_matrix %>%
+    as.data.frame() %>%
+    tibble::rownames_to_column("muttype_total") %>%
+    tidyr::separate(muttype_total, c("muttype", "muttype_sub"), sep = "_(?=[0-9])") %>%
+    dplyr::mutate(muttype = factor(muttype, levels = unique(muttype))) %>%
+    tidyr::gather(key = "sample", value = "count", -muttype, -muttype_sub) %>% 
+    dplyr::mutate(sample = factor(sample, levels = unique(sample)))
+  
+  # Count nr mutations. (This is used for the facets)
+  nr_muts <- counts %>%
+    dplyr::group_by(sample) %>%
+    dplyr::summarise(nr_muts = round(sum(count)))
+  
+  # Create facet texts
+  facet_labs_y <- stringr::str_c(nr_muts$sample, " (n = ", nr_muts$nr_muts, ")")
+  names(facet_labs_y) <- nr_muts$sample
+  facet_labs_x <- c("1: C", "1: T", "1: C", "1: T", 2, 3, 4, "5+", 2, 3, 4, "5+", 2, 3, 4, "5+")
+  names(facet_labs_x) <- levels(counts$muttype)
+  
+  
+  # Add optional extra labels
+  if (extra_labels) {
+    title <- stringr::str_c(
+      "Deletion           ",
+      "Insertion          ",
+      "Deletion                                   ",
+      "Insertion                                  ",
+      "Deletion (MH)"
+    )
+    x_lab <- stringr::str_c(
+      "Homopolymer length                            ",
+      "Number of repeat units                                                                               ",
+      "Microhomology length"
+    )
+  } else {
+    title <- x_lab <- ""
+  }
+  
+  # Change plotting parameters based on whether plot should be condensed.
+  if (condensed == TRUE) {
+    width <- 1
+    spacing <- 0
+  } else {
+    width <- 0.6
+    spacing <- 0.5
+  }
+  
+
+  
+  ttINDEL <- ggplot(data = counts, aes(x = muttype_sub, y = count, fill = muttype, width = 1)) + geom_bar(stat = "identity", size = 0.2) + scale_fill_manual(values = INDEL_COLORS) + 
+    facet_grid(sample ~ muttype,
+               scales = facet_scale,
+               space = "free_x",
+               labeller = labeller(muttype = facet_labs_x, sample = facet_labs_y)
+    ) +
+    coord_cartesian(ylim = c(0, ymax)) + guides(fill = FALSE) + theme_BM()  + 
+    expand_limits(y = 0) +  scale_y_continuous(expand = c(0, 0), limits = c(0,1200),labels = scales::number_format(accuracy = 0.1), (breaks = seq(0, ymax, 0.1))) +
+    theme(axis.title.y = element_blank(), 
+          axis.line = element_line(colour = "grey"),
+          axis.ticks=element_line(colour = "grey"),
+          axis.text.y = element_text(size = 8), axis.title.x = element_blank(), 
+          axis.text.x = element_text(size = 5, angle = 90, 
+                                     vjust = 0.4), strip.text.x = element_text(size = 9), 
+          strip.text.y = element_text(size = 9), panel.grid.major.x = element_blank(), 
+          panel.spacing.x = unit(0, "lines")) + 
+    ylab("Relative contribution") 
+  return(ttINDEL)
+  
+}
+
+  
+  
 
 ###################
 ###Load datasets###
@@ -82,7 +289,10 @@ dbs_counts <- count_dbs_contexts(dbs_grl)
 ###########################
 
 overview_data <- as.data.frame(read_xlsx("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Clinical_info/meta_data.xlsx",sheet = "Sheet1"))
-colon_healthy_samples <- overview_data %>% dplyr::filter(Condition=="Healthy" & tissue =="Colon" & WGS_approach=="Organoid")%>% dplyr::pull(sample_name_R) %>% sort() %>% unique()
+colon_healthy_samples <- overview_data %>% dplyr::filter(Condition=="Healthy" & tissue =="Colon" & WGS_approach=="Organoid" )%>% dplyr::pull(sample_name_R) %>% sort() %>% unique()
+
+colon_healthy_samples <- overview_data %>% dplyr::filter(Condition=="Healthy" & tissue =="Colon" & WGS_approach=="Organoid"  & Rebuttal == "0")%>% dplyr::pull(sample_name_R) %>% sort() %>% unique()
+
 mut_mat_colon <- mut_mat[,colon_healthy_samples]
 colnames(mut_mat_colon)
 ssbs_Lee <- read.table("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/Lee_signatures_colon/sbs_category_counts.txt",sep = "\t")
@@ -112,7 +322,7 @@ indel_Lee <- as.data.frame(t(indel_Lee))
 rownames(indel_Lee) <-  rownames(indel_counts_colon)
 indel_counts_sub <- cbind(indel_counts_colon,indel_Lee)
 indel_counts_colon_export <- tibble::rownames_to_column(indel_counts_sub, "MutationType")
-translation_table <- as.data.frame(read.table("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Scripts/SigProfiler/translation_table.txt",header = TRUE))
+translation_table <- as.data.frame(read.table("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/R/SigProfiler/translation_table.txt",header = TRUE))
 indel_counts_colon_export <- left_join(indel_counts_colon_export,translation_table[c("MutationType","SigProfiler")],by="MutationType") %>% tibble::column_to_rownames(var="SigProfiler") %>% dplyr::select(-MutationType)%>%  tibble::rownames_to_column("MutationType")
 write.table(indel_counts_colon_export, file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/indels_colon.txt",sep = "\t",qmethod = "double", quote = FALSE,row.names = FALSE)
 saveRDS(indel_counts_sub,file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/indels_colon.rds")
@@ -142,10 +352,6 @@ saveRDS(signatures,file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Health
 signatures <- signatures %>% tibble::rownames_to_column("MutationType")
 write.table(signatures, file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/Signatures/MutationPatterns/denovo_SBS_colon_sign.txt",sep = "\t", col.names = NA,qmethod = "double", quote = FALSE)
 
-abs_contribution <- tibble::rownames_to_column(abs_contribution, "sample_name_R")
-saveRDS(abs_contribution,file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/Signatures/MutationPatterns/denovo_SBS_colon_sign_contribution.rds")
-write.table(abs_contribution, file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/Signatures/MutationPatterns/denovo_SBS_colon_sign_contribution.txt",sep = "\t", col.names = NA,qmethod = "double", quote = FALSE)
-
 
 ###DBS COLON
 
@@ -166,10 +372,6 @@ abs_contribution <- as.data.frame(t(abs_contribution))
 saveRDS(signatures,file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/Signatures/MutationPatterns/denovo_DBS_colon_sign.rds")
 signatures <- signatures %>% tibble::rownames_to_column("MutationType")
 write.table(signatures, file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/Signatures/MutationPatterns/denovo_DBS_colon_sign.txt",sep = "\t", col.names = NA,qmethod = "double", quote = FALSE)
-
-abs_contribution <- tibble::rownames_to_column(abs_contribution, "sample_name_R")
-saveRDS(abs_contribution,file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/Signatures/MutationPatterns/denovo_DBS_colon_sign_contribution.rds")
-write.table(abs_contribution, file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/Signatures/MutationPatterns/denovo_DBS_colon_sign_contribution.txt",sep = "\t", col.names = NA,qmethod = "double", quote = FALSE)
 
 
 
@@ -193,9 +395,68 @@ saveRDS(signatures,file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Health
 signatures <- signatures %>% tibble::rownames_to_column("MutationType")
 write.table(signatures, file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/Signatures/MutationPatterns/denovo_indel_colon_sign.txt",sep = "\t", col.names = NA,qmethod = "double", quote = FALSE)
 
-abs_contribution <- tibble::rownames_to_column(abs_contribution, "sample_name_R")
-saveRDS(abs_contribution,file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/Signatures/MutationPatterns/denovo_indel_colon_sign_contribution.rds")
-write.table(abs_contribution, file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/Signatures/MutationPatterns/denovo_indel_colon_sign_contribution.txt",sep = "\t", col.names = NA,qmethod = "double", quote = FALSE)
+
+
+####
+#signature contribution
+###
+overview_data <- as.data.frame(read_xlsx("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Clinical_info/meta_data.xlsx",sheet = "Sheet1"))
+colon_healthy_samples <- overview_data %>% dplyr::filter(Condition=="Healthy" & tissue =="Colon" & WGS_approach =="Organoid")%>% dplyr::pull(sample_name_R) %>% sort() %>% unique()
+
+
+SBS_matrix_colon <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/SBS_colon.rds")
+DBS_matrix_colon <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/DBS_colon.rds")
+indel_matrix_colon <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/indels_colon.rds")
+
+
+signature_SBS_colon <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/Signatures/MutationPatterns/denovo_SBS_colon_sign.rds")
+strict_refit <- fit_to_signatures_strict(SBS_matrix_colon, as.matrix(signature_SBS_colon), max_delta = 0.004)
+contribution_SBS <- as.data.frame(t(strict_refit$fit_res$contribution)) %>% tibble::rownames_to_column("sample_name_R")
+
+SBS_sign_contr_colon <- left_join(dplyr::filter(overview_data,sample_name_R %in% colon_healthy_samples), contribution_SBS ,by="sample_name_R")
+
+SBS_sign_contr_colon <- SBS_sign_contr_colon %>% mutate(treatment = ifelse(pretreated=="No","Untreated",
+                                                                           ifelse(pretreated=="Yes","Pretreated","NA")))
+box <- ggboxplot(SBS_sign_contr_colon,add = "jitter", x = "treatment", y = "SBS_COL_F",
+                 color = "pretreated" ,palette = c("#6cb48c", "#F49C5C"))+  #fill = "variable", #palette = c("#00AFBB", "#E7B800", "#FC4E07")
+  #stat_compare_means(aes(label = ..p.signif..))+
+  stat_compare_means(method = "wilcox.test")+
+  xlab(c(""))+
+  ylab(c("SBS_COL_F mutation contribution"))+
+  #scale_y_continuous(limits = c(0, 0.5))+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5),
+        legend.position = "none")
+box
+pdf(file="/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/SBS_COL_F_boxplot_ABS_contribution.pdf",
+    width=2, height=4, pointsize=6, useDingbats=FALSE)
+print(box)
+dev.off()
+
+
+signature_DBS_colon <- readRDS(file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/Signatures/MutationPatterns/denovo_DBS_colon_sign.rds")
+strict_refit <- fit_to_signatures_strict(DBS_matrix_colon, as.matrix(signature_DBS_colon), max_delta = 0.004)
+contribution_DBS <- as.data.frame(t(strict_refit$fit_res$contribution)) %>% tibble::rownames_to_column("sample_name_R")
+
+DBS_sign_contr_colon <- left_join(dplyr::filter(overview_data,sample_name_R %in% colon_healthy_samples), contribution_DBS ,by="sample_name_R")
+
+DBS_sign_contr_colon <- DBS_sign_contr_colon %>% mutate(treatment = ifelse(pretreated=="No","Untreated",
+                                                                           ifelse(pretreated=="Yes","Pretreated","NA")))
+box <- ggboxplot(DBS_sign_contr_colon,add = "jitter", x = "treatment", y = "DBS_COL_B",
+                 color = "pretreated" ,palette = c("#6cb48c", "#F49C5C"))+  #fill = "variable", #palette = c("#00AFBB", "#E7B800", "#FC4E07")
+  #stat_compare_means(aes(label = ..p.signif..))+
+  stat_compare_means(method = "wilcox.test")+
+  xlab(c(""))+
+  ylab(c("DBS_COL_B mutation contribution"))+
+  #scale_y_continuous(limits = c(0, 0.5))+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5),
+        legend.position = "none")
+box
+pdf(file="/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/DBS_COL_B_boxplot_ABS_contribution.pdf",
+    width=2, height=4, pointsize=6, useDingbats=FALSE)
+print(box)
+dev.off()
+
+
 
 ###########################
 ###Process liver samples###
@@ -204,7 +465,7 @@ write.table(abs_contribution, file = "/Users/avanhoeck/hpc/cuppen/projects/P0002
 overview_data <- as.data.frame(read_xlsx("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Clinical_info/meta_data.xlsx",sheet = "Sheet1"))
 liver_healthy_samples <- overview_data %>% dplyr::filter(Condition=="Healthy" & tissue =="Liver" & WGS_approach=="Organoid")%>% dplyr::pull(sample_name_R) %>% sort() %>% unique()
 mut_mat_liver <- mut_mat[,liver_healthy_samples]
-ssbs_Sanger <- read.table("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/VCFs_liver/matrices/SBS_liver_Sanger.txt",sep = "\t",header = T)
+ssbs_Sanger <- read.table("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/VCFs_liver/SBS_liver_Sanger.txt",sep = "\t",header = T)
 rownames(ssbs_Sanger) <-  tri_context
 mut_mat_sub <- cbind(mut_mat_liver,ssbs_Sanger)
 mut_mat_sub_export <- tibble::rownames_to_column(mut_mat_sub, "MutationType")
@@ -213,7 +474,7 @@ saveRDS(mut_mat_sub,file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healt
 
 
 dbs_counts_liver <- dbs_counts[,liver_healthy_samples]
-dsbs_Sanger <- read.table("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/VCFs_liver/matrices/DBS_liver_Sanger.txt",sep = "\t",header = T)
+dsbs_Sanger <- read.table("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/VCFs_liver/DBS_liver_Sanger.txt",sep = "\t",header = T)
 rownames(dsbs_Sanger) <-  rownames(dbs_counts_liver)
 dbs_counts_sub <- cbind(dbs_counts_liver,dsbs_Lee)
 dbs_counts_export <- tibble::rownames_to_column(dbs_counts_sub, "MutationType")
@@ -225,7 +486,7 @@ saveRDS(dbs_counts_sub,file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_He
 indel_counts <- as.data.frame(indel_counts)
 indel_counts_liver <- indel_counts[,liver_healthy_samples]
 indel_counts_liver_export <- tibble::rownames_to_column(indel_counts_liver, "MutationType")
-translation_table <- as.data.frame(read.table("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Scripts/SigProfiler/translation_table.txt",header = TRUE))
+translation_table <- as.data.frame(read.table("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/R/SigProfiler/translation_table.txt",header = TRUE))
 indel_counts_liver_export <- left_join(indel_counts_liver_export,translation_table[c("MutationType","SigProfiler")],by="MutationType") %>% tibble::column_to_rownames(var="SigProfiler") %>% dplyr::select(-MutationType)%>%  tibble::rownames_to_column("MutationType")
 
 write.table(indel_counts_liver_export, file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/indels_liver.txt",sep = "\t",qmethod = "double", quote = FALSE,row.names = FALSE)
@@ -325,14 +586,29 @@ SBS_sign_colon <- readRDS(signatures,file = "/Users/avanhoeck/hpc/cuppen/project
 pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/colon_SBS_signatures.pdf",7,9)
 plot_96_profile(SBS_sign_colon,condensed = TRUE)
 dev.off()
+pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/colon_SBS_signatures_update.pdf",7,9)
+plot_96_profile3(SBS_sign_colon,condensed = TRUE)
+dev.off()
+
+
 DBS_sign_colon <- readRDS(signatures,file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/Signatures/MutationPatterns/denovo_DBS_colon_sign.rds")
 pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/colon_DBS_signatures.pdf",7,8)
 plot_dbs_contexts(DBS_sign_colon,condensed = TRUE)
 dev.off()
+DBS_sign_colon <- readRDS(signatures,file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/Signatures/MutationPatterns/denovo_DBS_colon_sign.rds")
+pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/colon_DBS_signatures_update.pdf",7,8)
+plot_DBS_profile3(DBS_sign_colon,condensed = TRUE)
+dev.off()
+
+
+
 indel_sign_colon <- readRDS(signatures,file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/Signatures/MutationPatterns/denovo_indel_colon_sign.rds")
 plot_indel_contexts(indel_sign_colon)
 pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/colon_indel_signatures.pdf",8,6)
 plot_indel_contexts(indel_sign_colon,condensed = TRUE)
+dev.off()
+pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/colon_indel_signatures_update.pdf",8,6)
+plot_INDEL_profile3(indel_sign_colon,condensed = TRUE,extra_labels=TRUE)
 dev.off()
 
 
@@ -340,6 +616,9 @@ dev.off()
 SBS_sign_liver <- readRDS(signatures,file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/Signatures/MutationPatterns/denovo_SBS_liver_sign.rds")
 pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/liver_SBS_signatureszoom.pdf",12,2)
 plot_96_profile(SBS_sign_liver[3],condensed = TRUE)
+dev.off()
+pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/liver_SBS_signatures_update.pdf",7,12)
+plot_96_profile3(SBS_sign_liver,condensed = TRUE,ymax = 0.2)
 dev.off()
 DBS_sign_liver <- readRDS(signatures,file = "/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/Signatures/MutationPatterns/denovo_DBS_liver_sign.rds")
 pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/liver_DBS_signatures.pdf",7,8)
@@ -356,18 +635,22 @@ signatures = get_known_signatures()
 Ptand5FUsign<-cbind(signatures[,c("SBS35")],rowSums(signatures[,c("SBS17b","SBS17a")])/2)
 Ptand5FUsign <- sweep(Ptand5FUsign,2,(colSums(Ptand5FUsign)),`/`)
 colnames(Ptand5FUsign) <- c("SBS35","SBS17")
-Ptand5FUsign<-cbind(Ptand5FUsign[,c("SBS35","SBS17")],rowSums(Ptand5FUsign[,c("SBS35","SBS17")])/2)
+Ptand5FUsign<-cbind(Ptand5FUsign[,c("SBS35","SBS17")],rowSums(Ptand5FUsign[,c("SBS35","SBS35","SBS17")])/2)
 colnames(Ptand5FUsign) <- c("Platinum","5-FU","Platinum + 5-FU")
 Ptand5FUsign <- sweep(Ptand5FUsign,2,(colSums(Ptand5FUsign)),`/`)
-tt <- cbind(SBS_sign_colon[,c("SBS_COL_F")],Ptand5FUsign)
+tt <- cbind(SBS_sign_colon[,c("SBS_COL_F")],SBS_sign_colon_sigprofiler[,c("SBS96H_SigProfiler_colon")],Ptand5FUsign)
 rownames(tt) <- rownames(SBS_sign_colon)
-colnames(tt) <- c("SBS_F_Mut.Pat","Platinum","5-FU","Platinum + 5-FU")
-tt <- tt %>% as.data.frame() %>% dplyr::select(Platinum,`5-FU`,`Platinum + 5-FU`,SBS_F_Mut.Pat)
-pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/colon_SBS_Ptand5FUsign_MutPat_SigProfilier.pdf",6,6)
-plot_96_profile(tt,condensed = TRUE,ymax = 0.3)
+colnames(tt) <- c("DeNovoMutPat","DeNovoSigProf","Platinum","5-FU","Platinum + 5-FU")
+tt <- tt %>% as.data.frame() %>% dplyr::select(`De Novo SBS`,`Platinum + 5-FU`)
+pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/colon_SBS_Ptand5FUsign_MutPat_SigProfilier_all.pdf",6,6)
+plot_96_profile3(tt,condensed = TRUE,ymax = 0.3)
 dev.off()
+
+totals_plot <- plot_96_profile3(tt, condensed = T, ymax = 0.1) + scale_y_continuous(expand = c(0, 0)) +theme(panel.spacing = unit(1.5, "lines"))
+ggsave("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/colon_SBS_Ptand5FUsign_MutPat_SigProfilier2.pdf", totals_plot, width = 6, height = 3.5)
+
 cosine_colon <- cos_sim_matrix(tt,tt)
-pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/cosine_colon_SBS_Ptand5FUsign.pdf",5,3)
+pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/cosine_colon_SBS_Ptand5FUsign_update.pdf",5,3)
 plot_cosine_heatmap(cosine_colon,plot_values = T,cluster_rows = F,cluster_cols = F)
 dev.off()
 
@@ -393,18 +676,14 @@ pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/
 plot_cosine_heatmap(cosine_colon,plot_values = T,cluster_rows = F,cluster_cols = F)
 dev.off()
 
+DBS<-cbind(DBS_sign_colon[,c("DBS_COL_B")],signatures_dbs[,c("DBS5")])
+rownames(DBS) <- rownames(DBS_sign_colon)
+colnames(DBS) <- c("De Novo DBS","Platinum")
 
-#DBS-B is platinum DBS-5 platinum signature
-signatures_dbs = get_known_signatures(muttype = "dbs")
-rownames(signatures_dbs) <- rownames(DBS_sign_colon)
-cosine_colon <- cos_sim_matrix(signatures_dbs,DBS_sign_colon)
-plot_cosine_heatmap(cosine_colon,plot_values = T,cluster_rows = F,cluster_cols = F)
-pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/DBS_novel_sig.pdf",8,3)
-plot_dbs_contexts(DBS_sign_colon[2],condensed = TRUE)
-dev.off()
-pdf("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/cosine_colon_DBS_COSMIC.pdf",8,3)
-plot_cosine_heatmap(cosine_colon,plot_values = T,cluster_rows = F,cluster_cols = F)
-dev.off()
+ggsave("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Figures/Sign_analysis/colon_DBS_Ptand5FUsign_MutPat_SigProfilier2.pdf", ttDBS, width = 6, height = 3.5)
+
+
+
 
 #indel is platinum MH signature
 signatures_indel = get_known_signatures(muttype = "indel")
@@ -419,7 +698,7 @@ dev.off()
 
 
 
-SBS_sign_colon_sigprofiler <- read.table("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Scripts/SigProfiler/output/SBS_colon/SBS96/All_Solutions/SBS96_9_Signatures/Signatures/SBS96_S9_Signatures.txt",header = TRUE,row.names = 1)
+SBS_sign_colon_sigprofiler <- read.table("/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/R/SigProfiler/output/SBS_colon/SBS96/All_Solutions/SBS96_9_Signatures/Signatures/SBS96_S9_Signatures.txt",header = TRUE,row.names = 1)
 colnames(SBS_sign_colon_sigprofiler) <- paste(colnames(SBS_sign_colon_sigprofiler),"_SigProfiler_colon", sep="")
 plot_96_profile(SBS_sign_colon_sigprofiler,condensed = TRUE,ymax = 0.3)
 cosine_colon <- cos_sim_matrix(SBS_sign_colon_sigprofiler,SBS_sign_colon)

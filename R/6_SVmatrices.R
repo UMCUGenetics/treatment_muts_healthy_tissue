@@ -36,8 +36,8 @@ make_simple_matrix <- function(df){
   colnames(matrix_out)[1] <- df$SampleID[1]
   return(matrix_out)
 }
-
 make_complex_matrix <- function(df){
+  print(df$SampleID[1])
   df_matrix <- setNames(data.frame(matrix(ncol = 1, nrow = 11)),c("ResolvedType"))
   df_matrix$ResolvedType <- c("0","COMPLEX","DEL","DEL_TI","DUP","DUP_TI","INV","RECIP_INV","RECIP_TRANS","DOUBLE_MINUTE","LINE")
   df_matrix$ResolvedType <- as.character(df_matrix$ResolvedType)
@@ -68,8 +68,8 @@ matrices = lapply(datalist, function(x){make_simple_matrix(df=x)})
 matrixes <- do.call(cbind, matrices) #%>% dplyr::filter(SV_complex=="COMPLEX") %>% dplyr::pull(ResolvedType) %>% sort() %>% unique()
 matrixes <- matrixes %>% t() %>% as.data.frame() 
 row.names(matrixes) <- gsub(x = row.names(matrixes), pattern = "-", replacement = ".")
-saveRDS(matrixes,"/Users/avanhoeck//hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/SV_matrices_fromlinx.rds")
-write.table(matrixes,"/Users/avanhoeck//hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Sign_analysis/mutationMatrices/SV_matrices_fromlinx.txt",sep = "\t")
+saveRDS(matrixes,"/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Rearrangments/SV_matrices_fromlinx.rds")
+write.table(matrixes,"/Users/avanhoeck/hpc/cuppen/projects/P0002_5FU_Healthy/WGS_clones/analysis/Analysis/Data/Rearrangments/SV_matrices_fromlinx.txt",sep = "\t")
 
 matrixes <- matrixes %>% tibble::rownames_to_column("sample_name_R")
 
